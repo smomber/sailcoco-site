@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SailCoCo — The Cruising Compliance Copilot</title>
+<meta name="description" content="SailCoCo is a subscription app for cruising sailors and professional crew: verified, dated entry and visa requirements, permit tracking, and an AI compliance assistant for every country on your route. Launching 2027.">
+<style>
+:root{--cream:#F7EBD7;--foam:#FDF6EA;--cocoa:#4A2E1D;--cocoa-l:#6B4A33;--ocean:#1C8095;--ocean-d:#136178;--brass:#B98A2F;--gold:#D4AF37;--green:#4A7C43;--navy:#1F3A5F}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--cream);color:var(--cocoa);line-height:1.65}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+header.site{background:var(--cocoa);color:var(--cream);padding:14px 0;position:sticky;top:0;z-index:5}
+header.site .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.brand{font-size:1.3rem;font-weight:bold;letter-spacing:.5px;color:var(--cream);text-decoration:none}
+.brand span{color:var(--gold)}
+nav a{color:var(--cream);text-decoration:none;margin-left:16px;font-size:.95rem;opacity:.9}
+nav a:hover{opacity:1;text-decoration:underline}
+.hero{background:linear-gradient(180deg,var(--ocean-d) 0%,var(--ocean) 100%);color:#F2FAFC;text-align:center;padding:64px 22px 58px}
+.hero h1{font-size:2.3rem;margin:0 0 12px;line-height:1.2}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p.tag{font-size:1.15rem;max-width:640px;margin:0 auto 10px;color:#DDF0F5}
+.badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 16px;font-size:.85rem;margin-bottom:18px;letter-spacing:.06em}
+.cta{display:inline-block;background:var(--gold);color:#3B2508;font-weight:bold;text-decoration:none;padding:13px 28px;border-radius:12px;margin-top:16px;font-size:1rem}
+.cta:hover{filter:brightness(1.05)}
+section{padding:44px 0}
+section h2{color:var(--ocean);font-size:1.5rem;margin:0 0 6px;text-align:center}
+section p.sub{color:var(--cocoa-l);text-align:center;max-width:680px;margin:0 auto 26px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--foam);border:1px solid #EAD9BF;border-top:4px solid var(--ocean);border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(59,35,23,.06)}
+.card h3{margin:0 0 8px;color:var(--cocoa);font-size:1.05rem}
+.card p{margin:0;font-size:.92rem;color:var(--cocoa-l)}
+.card.gold{border-top-color:var(--gold)}.card.green{border-top-color:var(--green)}.card.navy{border-top-color:var(--navy)}.card.brass{border-top-color:var(--brass)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:10px}
+.plan{background:var(--foam);border:2px solid var(--ocean);border-top:6px solid var(--ocean);border-radius:14px;padding:20px;text-align:center}
+.plan.featured{border-color:var(--brass);border-top-color:var(--brass);background:linear-gradient(180deg,var(--foam),#F4E6CB)}
+.plan.navy{border-color:var(--navy);border-top-color:var(--navy)}
+.plan h3{margin:0;font-size:1.05rem}
+.price{font-size:1.7rem;font-weight:bold;margin:6px 0 2px}
+.price small{font-size:.85rem;font-weight:normal;color:var(--cocoa-l)}
+.intro{color:var(--green);font-size:.85rem;font-weight:bold;margin-bottom:10px}
+.plan ul{list-style:none;padding:0;margin:10px 0 0;text-align:left;font-size:.88rem}
+.plan li{padding:3px 0 3px 20px;position:relative}
+.plan li:before{content:"⚓";position:absolute;left:0;font-size:.7rem;color:var(--ocean)}
+.onetime{background:var(--foam);border:2px solid var(--gold);border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
+.onetime div{flex:1;min-width:250px}
+.onetime h3{margin:0 0 4px;font-size:1rem}
+.note{background:#EFF7F4;border:1.5px solid var(--green);border-radius:12px;padding:14px 18px;font-size:.9rem;margin-top:22px}
+.refund{background:var(--foam);border:1.5px solid var(--brass);border-radius:14px;padding:20px 24px;font-size:.94rem}
+.refund h3{color:var(--brass);margin-top:14px;font-size:1rem}
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;font-size:.94rem}
+footer{background:var(--cocoa);color:#E9DCC9;margin-top:20px;padding:26px 22px;text-align:center;font-size:.85rem}
+footer a{color:var(--gold)}
+.legal-line{opacity:.8;margin-top:8px}
+@media(max-width:600px){.hero h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+
+<header class="site"><div class="wrap">
+<a class="brand" href="index.html">Sail<span>CoCo</span></a>
+<nav><a href="#product">Product</a><a href="#pricing">Pricing</a><a href="#refunds">Refunds</a><a href="#about">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
+</div></header>
+
+<div class="hero">
+<div class="badge">LAUNCHING 2027 · FOUNDING CREW SEATS OPEN SOON</div>
+<h1>The #1 place for cruising sailors to<br><em>get compliant and stay compliant</em></h1>
+<p class="tag">Country-by-country entry, visa, and clearance requirements for boaters crossing international waters — verified, dated, and sourced, with an AI assistant that never guesses.</p>
+<a class="cta" href="mailto:support@sailcoco.com?subject=SailCoCo%20launch%20list">Join the launch list →</a>
+</div>
+
+<section id="product"><div class="wrap">
+<h2>What SailCoCo does</h2>
+<p class="sub">Every country puts your boat, your crew, and your gear under its own rules. SailCoCo turns that maze into a plan — researched by our AI pipeline, corroborated across official sources, and continuously monitored for changes.</p>
+<div class="cards">
+<div class="card"><h3>🧭 Trip Compliance</h3><p>Plan a multi-country route and get each stop's entry, visa, and clearance requirements — every fact carrying its source and last-verified date.</p></div>
+<div class="card gold"><h3>💬 CoCo Agent</h3><p>An AI assistant that knows your trip and your paperwork. Ask anything; answers cite sources and dates. When it can't verify, it says so and investigates — it never guesses. Informational only, not legal advice.</p></div>
+<div class="card green"><h3>🛃 Import Clock &amp; Ship's Papers</h3><p>Countdown timers on cruising permits and temporary imports, renewal steps with fees, and one organized home for vessel documents — registration, insurance, radio license, clearance papers.</p></div>
+<div class="card"><h3>🌿 Biosecurity, Pets &amp; Drones</h3><p>What you must dispose, declare, or can keep at each border; pet import timelines and certificates; whether your drone can fly, needs a permit, or should stay stowed.</p></div>
+<div class="card brass"><h3>📣 Live Community Feed</h3><p>Real-time official notices for the countries on your route, plus corroborated reports from cruisers on the ground — fee changes, office hours, inspection wait times.</p></div>
+<div class="card navy"><h3>⚓ Helm Display Panel</h3><p>Your compliance instruments on the boat's own screens via Signal K — permit clocks and arrival status next to speed and depth. The NOW zone is free for every boat, forever.</p></div>
+</div>
+<div class="note"><strong>Who it's for:</strong> cruising sailors and liveaboards crossing borders on their own boats; guests and crew joining someone else's boat; delivery skippers and professional crew (our Pro tier); and charter operators running trips for others.</div>
+</div></section>
+
+<section id="pricing" style="background:var(--foam)"><div class="wrap">
+<h2>Pricing</h2>
+<p class="sub">Simple annual plans — one price, one renewal a year, cancel anytime. First-year introductory pricing shown; standard price applies from the first renewal. Prices in USD, exclusive of applicable taxes.</p>
+<div class="pricing-grid">
+<div class="plan"><h3>Free</h3><div class="price">$0</div><div class="intro">no card required</div>
+<ul><li>Trip Compliance for 1 country</li><li>2 vessel documents</li><li>CoCo Agent — 5 questions/day</li><li>Full Community access</li></ul></div>
+<div class="plan"><h3>Passenger Pass</h3><div class="price">$39<small>/yr</small></div><div class="intro">$25 first year</div>
+<ul><li>Up to 5 countries</li><li>Import Clock &amp; Drone Rules</li><li>Biosecurity &amp; Pet Import</li><li>CoCo Agent — 10 questions/day</li></ul></div>
+<div class="plan featured"><h3>Crew Pass</h3><div class="price">$139<small>/yr</small></div><div class="intro">$89 first year · most popular</div>
+<ul><li>Up to 10 countries</li><li>Every app, current &amp; future</li><li>Unlimited CoCo Agent</li><li>Full helm display panel</li></ul></div>
+<div class="plan navy"><h3>Pro Crew</h3><div class="price">$249<small>/yr</small></div><div class="intro">$159 first year</div>
+<ul><li>For delivery skippers &amp; paid crew</li><li>Unlimited countries</li><li>Crew visa &amp; Schengen day tracking</li><li>Multi-vessel ship's papers</li></ul></div>
+</div>
+<div class="onetime">
+<div><h3>⚓ Founding Crew — $299 one-time</h3><p style="margin:0;font-size:.9rem">Lifetime Crew Pass, limited to 150 seats, sold during a limited pre-launch window. No renewals, ever.</p></div>
+<div><h3>🧭 Passage Pack — $24.99 one-time</h3><p style="margin:0;font-size:.9rem">One route, up to 8 countries, 6 months of full access. No subscription — built for a single crossing or season.</p></div>
+</div>
+<p class="sub" style="margin-top:18px">Charter operators: vessel bundles from $44.99–$129.99/month (introductory $29.99–$84.99), monthly or annual billing, with invited crew and passengers joining free. <a href="mailto:support@sailcoco.com" style="color:var(--ocean)">Contact us</a> for details.</p>
+</div></section>
+
+<section id="refunds"><div class="wrap">
+<h2>Refund &amp; Cancellation Policy</h2>
+<p class="sub">The short version of what our <a href="terms.html" style="color:var(--ocean)">Terms of Service</a> provide:</p>
+<div class="refund">
+<h3 style="margin-top:0">Cancelling a subscription</h3>
+<p>Cancel anytime with one click in your account settings (or by email to support@sailcoco.com) — no phone call, no retention hoops. Cancellation stops future charges and takes effect at the end of your current billing period; you keep access until then. Amounts already charged for the current period are not refunded except where the law requires.</p>
+<h3>Renewals &amp; reminders</h3>
+<p>Annual plans renew once a year. We email a renewal reminder 15–45 days before each renewal, and a separate reminder 3–21 days before an introductory price steps up to the standard price.</p>
+<h3>One-time purchases</h3>
+<p>Founding Crew and Passage Pack do not auto-renew and no card is kept on file for them. A Passage Pack is not refundable once you create your route or its access window begins. If SailCoCo is discontinued within 24 months of a Founding Crew purchase, a pro-rata refund applies per our Terms.</p>
+<h3>App store purchases &amp; EU/UK customers</h3>
+<p>Purchases made through the Apple App Store or Google Play follow those stores' refund policies and processes. Consumers in the EEA and the United Kingdom have a 14-day right of withdrawal for digital services as described in our Terms.</p>
+</div>
+</div></section>
+
+<section id="about" style="background:var(--foam)"><div class="wrap">
+<h2>About SailCoCo</h2>
+<div class="about">
+<div><strong>The company.</strong> SailCoCo LLC is a California limited liability company building software for the international cruising community. The product is in active development, launching in 2027 with a pilot cohort covering 25 countries and expanding from there.</div>
+<div><strong>What we sell.</strong> Digital subscriptions and one-time digital passes to the SailCoCo web and mobile application — informational compliance reference content for trip planning. No physical goods. All content is informational only and is not legal, immigration, or customs advice.</div>
+<div><strong>Contact &amp; support.</strong><br>SailCoCo LLC<br>303 Twin Dolphin Drive, Suite 600<br>Redwood City, CA 94065, USA<br>Email: <a href="mailto:support@sailcoco.com" style="color:var(--ocean)">support@sailcoco.com</a><br>We answer support email within 2 business days.</div>
+</div>
+</div></section>
+
+<footer>
+<div><strong>Sail<span style="color:var(--gold)">CoCo</span></strong> — the cruising compliance copilot</div>
+<div class="legal-line">© 2026 SailCoCo LLC · Redwood City, California · <a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · <a href="index.html#refunds">Refund &amp; Cancellation Policy</a> · <a href="mailto:support@sailcoco.com">support@sailcoco.com</a></div>
+<div class="legal-line">Charges from SailCoCo appear on card statements as <strong>SAILCOCO</strong>.</div>
+</footer>
+
+</body>
+</html>
