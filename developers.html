@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SailCoCo for Developers — API &amp; MCP</title>
+<meta name="description" content="Compliance data and cruiser intelligence for chartplotters, marine apps, and AI-assisted tools — one REST API, one MCP server, Signal K-compatible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#top">Skip to content</a>
+
+<div class="page">
+
+<header class="hdr" data-nav>
+  <div class="hdr-inner">
+    <a href="index.html" class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2"/><line x1="12" y1="6.6" x2="12" y2="20"/><line x1="7" y1="10" x2="17" y2="10"/><path d="M5 14c0 3.5 3 6 7 6s7-2.5 7-6"/></svg>
+      <span class="brand-word">Sail<span>CoCo</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html#apps" class="nav-link">Product</a>
+      <a href="coverage.html" class="nav-link">Coverage</a>
+      <a href="index.html#skipper" class="nav-link">For Skippers</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="#top" class="nav-link is-current" aria-current="page">Developers</a>
+      <a href="index.html#resources" class="nav-link">Resources</a>
+    </nav>
+    <div class="hdr-actions push">
+      <a href="index.html#login" class="nav-login">Log in</a>
+      <a href="#waitlist" class="nav-cta">Get started</a>
+      <button type="button" class="burger" data-opens="mobile" aria-label="Menu" aria-expanded="false" aria-controls="mobile-panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-panel" id="mobile-panel" data-panel="mobile" hidden>
+    <div class="mobile-inner">
+      <div class="mobile-links">
+        <a href="index.html#apps" class="mobile-link" data-closes>Product</a>
+        <a href="coverage.html" class="mobile-link" data-closes>Coverage</a>
+        <a href="index.html#skipper" class="mobile-link" data-closes>For Skippers</a>
+        <a href="pricing.html" class="mobile-link" data-closes>Pricing</a>
+        <a href="#top" class="mobile-link is-current" data-closes>Developers</a>
+        <a href="index.html#resources" class="mobile-link" data-closes>Resources</a>
+        <a href="index.html#login" class="mobile-link" data-closes>Log in</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section id="top" class="bb-dark">
+  <div class="wrap pt-88 pb-80">
+    <p class="sec-badge" style="margin:0 0 22px;">In development — join the waitlist</p>
+    <h1 class="h1">SailCoCo <span style="color:var(--gold);">API &amp; MCP</span></h1>
+    <p style="margin:20px 0 0;max-width:600px;font-size:18px;line-height:1.55;color:var(--muted);text-wrap:pretty;">Compliance data and cruiser intelligence for chartplotters, marine apps, and AI-assisted tools — one REST API, one MCP server, Signal K-compatible.</p>
+    <div class="btn-row" style="margin-top:32px;">
+      <a href="#waitlist" class="btn btn-gold">Join the waitlist
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#quickstart" class="btn btn-outline">See the docs preview</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUICKSTART ===== -->
+<section id="quickstart" class="bb-dark">
+  <div class="wrap pad-88">
+    <p class="eyebrow eyebrow-gold">Quickstart</p>
+    <h2 class="h2-sm on-dark" style="max-width:620px;">Call the REST API directly, or connect an AI assistant over MCP.</h2>
+    <p style="margin:10px 0 0;font-size:15px;color:var(--meta);">Illustrative examples — the API is not yet open. Shapes shown here are the working design.</p>
+
+    <div class="grid grid-320 mt-44" style="gap:24px;">
+      <div class="code-block">
+        <p class="code-label">REST — GET compliance requirements</p>
+        <pre><span class="tok-cmd">curl</span> <span class="tok-num">https://api.sailcoco.com/v1/countries/BS/requirements</span> \
+  <span class="tok-num">-H</span> <span class="tok-str">"Authorization: Bearer sk_live_••••••••"</span>
+
+<span class="tok-brace">{</span>
+  <span class="tok-key">"country"</span>: <span class="tok-str">"Bahamas"</span>,
+  <span class="tok-key">"cruising_permit"</span>: <span class="tok-str">"required"</span>,
+  <span class="tok-key">"max_stay_days"</span>: <span class="tok-num">180</span>,
+  <span class="tok-key">"source_updated"</span>: <span class="tok-str">"2026-08-14"</span>
+<span class="tok-brace">}</span></pre>
+      </div>
+
+      <div class="code-block">
+        <p class="code-label">MCP — client config</p>
+        <pre><span class="tok-brace">{</span>
+  <span class="tok-key">"mcpServers"</span>: <span class="tok-brace">{</span>
+    <span class="tok-key">"sailcoco"</span>: <span class="tok-brace">{</span>
+      <span class="tok-key">"url"</span>: <span class="tok-str">"https://api.sailcoco.com/mcp"</span>,
+      <span class="tok-key">"auth"</span>: <span class="tok-str">"oauth2.1_pkce"</span>
+    <span class="tok-brace">}</span>
+  <span class="tok-brace">}</span>
+<span class="tok-brace">}</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARCHITECTURE ===== -->
+<section class="sec-raised bb-dark">
+  <div class="wrap pad-88">
+    <p class="eyebrow eyebrow-gold">Architecture</p>
+    <h2 class="h2-sm on-dark" style="max-width:620px;">One REST core, with an MCP façade for AI-assisted apps.</h2>
+
+    <div class="grid grid-250 mt-48" style="gap:24px;">
+      <div class="numbered-step">
+        <p class="n">1</p>
+        <h3>Generate a key</h3>
+        <p>API keys are issued the moment you create a developer account — no manual approval step.</p>
+      </div>
+      <div class="numbered-step">
+        <p class="n">2</p>
+        <h3>Call REST, or connect via MCP</h3>
+        <p>Same underlying data, two doors in: plain REST for apps and displays, MCP for AI assistants.</p>
+      </div>
+      <div class="numbered-step">
+        <p class="n">3</p>
+        <h3>Signal K-shaped output</h3>
+        <p>Responses map to Signal K's data model where one exists, so marine displays already speak the format.</p>
+      </div>
+      <div class="numbered-step">
+        <p class="n">4</p>
+        <h3>Guarded at the edge</h3>
+        <p>Per-key and per-account limits, plus anomaly detection, sit in front of every request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANS & RATE LIMITS ===== -->
+<section class="bb-dark">
+  <div class="wrap pad-88">
+    <p class="eyebrow eyebrow-gold center">Plans &amp; rate limits</p>
+    <h2 class="h2-sm on-dark center">Start free. Pay as your integration grows.</h2>
+    <p class="center" style="margin:10px 0 0;font-size:14px;color:var(--meta);">Illustrative tiers — final pricing is announced when the API opens.</p>
+
+    <div class="grid grid-250 mt-48">
+      <div class="tier">
+        <h3>Free</h3>
+        <p class="tier-price" style="font-size:26px;">$0</p>
+        <div class="rule"></div>
+        <div class="tier-list">
+          <p>100 requests / day</p>
+          <p>1 request / sec</p>
+          <p>Core compliance fields</p>
+          <p>Community support</p>
+        </div>
+      </div>
+
+      <div class="tier">
+        <h3>Starter</h3>
+        <p class="tier-price" style="font-size:26px;">[$&nbsp;·&nbsp;·]<span style="font-size:15px;font-weight:500;color:var(--meta);">/mo</span></p>
+        <div class="rule"></div>
+        <div class="tier-list">
+          <p>10,000 requests / day</p>
+          <p>5 requests / sec</p>
+          <p>Full compliance + documents</p>
+          <p>Email support</p>
+        </div>
+      </div>
+
+      <div class="tier tier-feature">
+        <span class="badge-over" style="left:auto;right:20px;">Most integrations</span>
+        <h3>Growth</h3>
+        <p class="tier-price" style="font-size:26px;">[$&nbsp;·&nbsp;·&nbsp;·]<span style="font-size:15px;font-weight:500;color:oklch(0.80 0.02 210);">/mo</span></p>
+        <div class="rule"></div>
+        <div class="tier-list">
+          <p>100,000 requests / day</p>
+          <p>20 requests / sec</p>
+          <p>+ Signal K live feed access</p>
+          <p>Priority support</p>
+        </div>
+      </div>
+
+      <div class="tier">
+        <h3>Enterprise</h3>
+        <p class="tier-price" style="font-size:22px;">Contact sales</p>
+        <div class="rule"></div>
+        <div class="tier-list">
+          <p>Custom volume &amp; limits</p>
+          <p>Dedicated infrastructure</p>
+          <p>SLA</p>
+          <p>White-glove onboarding</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECURITY ===== -->
+<section class="sec-raised bb-dark">
+  <div class="wrap pad-88">
+    <p class="eyebrow eyebrow-gold">Security</p>
+    <h2 class="h2-sm on-dark" style="max-width:620px;">Built to stop scraping and AI-assisted abuse, from day one.</h2>
+
+    <div class="grid grid-250 mt-44" style="gap:24px;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="oklch(0.75 0.14 85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--muted);">Keys are generated at signup, scoped to one account, and revocable instantly from your dashboard.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="oklch(0.75 0.14 85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--muted);">MCP connections authenticate with OAuth 2.1 and PKCE — no raw keys handed to an AI client.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="oklch(0.75 0.14 85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-4 4V5z"/><line x1="8" y1="9" x2="16" y2="9"/></svg>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--muted);">Limits apply per key <em>and</em> per account, so one leaked key can't be used to bypass a plan's cap.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="oklch(0.75 0.14 85)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/></svg>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--muted);">Anomaly detection flags extraction patterns that look like bulk scraping or automated abuse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SIGNAL K ===== -->
+<section id="signalk" class="bb-dark">
+  <div class="wrap pad-88 split-300">
+    <div>
+      <p class="eyebrow eyebrow-gold">Compatibility</p>
+      <h2 class="h2-sm on-dark">Speaks Signal K, the open marine data standard.</h2>
+      <p style="margin:18px 0 0;font-size:15px;line-height:1.7;color:var(--muted);text-wrap:pretty;">Signal K already runs on thousands of cruising boats — OpenPlotter, Victron Cerbo GX, and more. SailCoCo's API follows the same discovery and data-path conventions, so a boat already running Signal K can pull compliance data the same way it reads depth or wind.</p>
+    </div>
+    <div class="code-block" style="background:var(--abyss-raised);border-color:var(--line-dark-mid);padding:28px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.5 5.5a9 9 0 0 0 0 13M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <p class="eyebrow eyebrow-meta" style="margin:0;">Discovery path</p>
+      </div>
+      <pre style="font-size:13.5px;line-height:1.8;color:oklch(0.90 0.01 220);">GET /signalk/v1/api/vessels/self/
+    sailcoco/compliance</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAITLIST ===== -->
+<section id="waitlist" class="sec-raised bb-dark">
+  <div class="wrap pad-80" style="max-width:704px;text-align:center;">
+    <h2 class="h2-xs on-dark">Be first to build on SailCoCo.</h2>
+    <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--muted);">Leave your email and we'll reach out when the API and MCP server open for developers.</p>
+    <form style="display:flex;gap:12px;margin-top:26px;justify-content:center;flex-wrap:wrap;" onsubmit="return false;">
+      <label for="waitlist-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Email address</label>
+      <input id="waitlist-email" type="email" class="email-input" placeholder="you@yourcompany.com" style="flex:0 1 280px;">
+      <button type="submit" class="btn btn-gold" style="font-size:15px;padding:14px 26px;">Notify me</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap" style="padding-top:clamp(44px,4.9vw,64px);padding-bottom:32px;">
+    <div class="footer-grid">
+      <div style="min-width:200px;">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2"/><line x1="12" y1="6.6" x2="12" y2="20"/><line x1="7" y1="10" x2="17" y2="10"/><path d="M5 14c0 3.5 3 6 7 6s7-2.5 7-6"/></svg>
+          <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);">Sail<span style="color:var(--sky);">CoCo</span></span>
+        </div>
+        <p style="margin:14px 0 0;font-size:13.5px;line-height:1.6;color:var(--meta);max-width:240px;">Compliance and cruiser intelligence for offshore sailors.</p>
+      </div>
+      <div>
+        <p class="footer-head">Product</p>
+        <div class="footer-col">
+          <a href="index.html#apps">Trip Compliance</a>
+          <a href="index.html#apps">Document Vault</a>
+          <a href="index.html#apps">CoCo Agent</a>
+          <a href="index.html#apps">Community</a>
+          <a href="pricing.html">Pricing</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">For Skippers</p>
+        <div class="footer-col">
+          <a href="index.html#skipper">Skipper Program</a>
+          <a href="index.html#skipper">Manifest &amp; invites</a>
+          <a href="pricing.html#skippers">Fleet Skipper (2+ vessels)</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">Developers</p>
+        <div class="footer-col">
+          <a href="#waitlist">API &amp; MCP — waitlist</a>
+          <a href="#quickstart">Documentation preview</a>
+          <a href="#signalk">Signal K</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">Company</p>
+        <div class="footer-col">
+          <a href="index.html#about">About</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-meta">© 2026 SailCoCo LLC. Fair winds and following seas.</p>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;">
+        <span class="footer-meta">Google Play — coming soon</span>
+        <span class="footer-meta">App Store — coming soon</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script src="assets/nav.js"></script>
+</body>
+</html>

@@ -2,136 +2,724 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SailCoCo — The Cruising Compliance Copilot</title>
-<meta name="description" content="SailCoCo is a subscription app for cruising sailors and professional crew: verified, dated entry and visa requirements, permit tracking, and an AI compliance assistant for every country on your route. Launching 2027.">
-<style>
-:root{--cream:#F7EBD7;--foam:#FDF6EA;--cocoa:#4A2E1D;--cocoa-l:#6B4A33;--ocean:#1C8095;--ocean-d:#136178;--brass:#B98A2F;--gold:#D4AF37;--green:#4A7C43;--navy:#1F3A5F}
-*{box-sizing:border-box}
-body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--cream);color:var(--cocoa);line-height:1.65}
-.wrap{max-width:960px;margin:0 auto;padding:0 22px}
-header.site{background:var(--cocoa);color:var(--cream);padding:14px 0;position:sticky;top:0;z-index:5}
-header.site .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.brand{font-size:1.3rem;font-weight:bold;letter-spacing:.5px;color:var(--cream);text-decoration:none}
-.brand span{color:var(--gold)}
-nav a{color:var(--cream);text-decoration:none;margin-left:16px;font-size:.95rem;opacity:.9}
-nav a:hover{opacity:1;text-decoration:underline}
-.hero{background:linear-gradient(180deg,var(--ocean-d) 0%,var(--ocean) 100%);color:#F2FAFC;text-align:center;padding:64px 22px 58px}
-.hero h1{font-size:2.3rem;margin:0 0 12px;line-height:1.2}
-.hero h1 em{color:var(--gold);font-style:normal}
-.hero p.tag{font-size:1.15rem;max-width:640px;margin:0 auto 10px;color:#DDF0F5}
-.badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 16px;font-size:.85rem;margin-bottom:18px;letter-spacing:.06em}
-.cta{display:inline-block;background:var(--gold);color:#3B2508;font-weight:bold;text-decoration:none;padding:13px 28px;border-radius:12px;margin-top:16px;font-size:1rem}
-.cta:hover{filter:brightness(1.05)}
-section{padding:44px 0}
-section h2{color:var(--ocean);font-size:1.5rem;margin:0 0 6px;text-align:center}
-section p.sub{color:var(--cocoa-l);text-align:center;max-width:680px;margin:0 auto 26px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{background:var(--foam);border:1px solid #EAD9BF;border-top:4px solid var(--ocean);border-radius:14px;padding:18px 20px;box-shadow:0 2px 10px rgba(59,35,23,.06)}
-.card h3{margin:0 0 8px;color:var(--cocoa);font-size:1.05rem}
-.card p{margin:0;font-size:.92rem;color:var(--cocoa-l)}
-.card.gold{border-top-color:var(--gold)}.card.green{border-top-color:var(--green)}.card.navy{border-top-color:var(--navy)}.card.brass{border-top-color:var(--brass)}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:10px}
-.plan{background:var(--foam);border:2px solid var(--ocean);border-top:6px solid var(--ocean);border-radius:14px;padding:20px;text-align:center}
-.plan.featured{border-color:var(--brass);border-top-color:var(--brass);background:linear-gradient(180deg,var(--foam),#F4E6CB)}
-.plan.navy{border-color:var(--navy);border-top-color:var(--navy)}
-.plan h3{margin:0;font-size:1.05rem}
-.price{font-size:1.7rem;font-weight:bold;margin:6px 0 2px}
-.price small{font-size:.85rem;font-weight:normal;color:var(--cocoa-l)}
-.intro{color:var(--green);font-size:.85rem;font-weight:bold;margin-bottom:10px}
-.plan ul{list-style:none;padding:0;margin:10px 0 0;text-align:left;font-size:.88rem}
-.plan li{padding:3px 0 3px 20px;position:relative}
-.plan li:before{content:"⚓";position:absolute;left:0;font-size:.7rem;color:var(--ocean)}
-.onetime{background:var(--foam);border:2px solid var(--gold);border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
-.onetime div{flex:1;min-width:250px}
-.onetime h3{margin:0 0 4px;font-size:1rem}
-.note{background:#EFF7F4;border:1.5px solid var(--green);border-radius:12px;padding:14px 18px;font-size:.9rem;margin-top:22px}
-.refund{background:var(--foam);border:1.5px solid var(--brass);border-radius:14px;padding:20px 24px;font-size:.94rem}
-.refund h3{color:var(--brass);margin-top:14px;font-size:1rem}
-.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;font-size:.94rem}
-footer{background:var(--cocoa);color:#E9DCC9;margin-top:20px;padding:26px 22px;text-align:center;font-size:.85rem}
-footer a{color:var(--gold)}
-.legal-line{opacity:.8;margin-top:8px}
-@media(max-width:600px){.hero h1{font-size:1.7rem}}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SailCoCo — Clear in anywhere. Without the guesswork.</title>
+<meta name="description" content="Entry requirements, ship's papers, and first-hand reports from boats that just cleared in — one command center instead of six browser tabs and a forum thread from 2019.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
-<header class="site"><div class="wrap">
-<a class="brand" href="index.html">Sail<span>CoCo</span></a>
-<nav><a href="#product">Product</a><a href="#pricing">Pricing</a><a href="#refunds">Refunds</a><a href="#about">Contact</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></nav>
-</div></header>
+<a class="skip-link" href="#top">Skip to content</a>
 
-<div class="hero">
-<div class="badge">LAUNCHING 2027 · FOUNDING CREW SEATS OPEN SOON</div>
-<h1>The #1 place for cruising sailors to<br><em>get compliant and stay compliant</em></h1>
-<p class="tag">Country-by-country entry, visa, and clearance requirements for boaters crossing international waters — verified, dated, and sourced, with an AI assistant that never guesses.</p>
-<a class="cta" href="mailto:support@sailcoco.com?subject=SailCoCo%20launch%20list">Join the launch list →</a>
-</div>
+<div class="page">
 
-<section id="product"><div class="wrap">
-<h2>What SailCoCo does</h2>
-<p class="sub">Every country puts your boat, your crew, and your gear under its own rules. SailCoCo turns that maze into a plan — researched by our AI pipeline, corroborated across official sources, and continuously monitored for changes.</p>
-<div class="cards">
-<div class="card"><h3>🧭 Trip Compliance</h3><p>Plan a multi-country route and get each stop's entry, visa, and clearance requirements — every fact carrying its source and last-verified date.</p></div>
-<div class="card gold"><h3>💬 CoCo Agent</h3><p>An AI assistant that knows your trip and your paperwork. Ask anything; answers cite sources and dates. When it can't verify, it says so and investigates — it never guesses. Informational only, not legal advice.</p></div>
-<div class="card green"><h3>🛃 Import Clock &amp; Ship's Papers</h3><p>Countdown timers on cruising permits and temporary imports, renewal steps with fees, and one organized home for vessel documents — registration, insurance, radio license, clearance papers.</p></div>
-<div class="card"><h3>🌿 Biosecurity, Pets &amp; Drones</h3><p>What you must dispose, declare, or can keep at each border; pet import timelines and certificates; whether your drone can fly, needs a permit, or should stay stowed.</p></div>
-<div class="card brass"><h3>📣 Live Community Feed</h3><p>Real-time official notices for the countries on your route, plus corroborated reports from cruisers on the ground — fee changes, office hours, inspection wait times.</p></div>
-<div class="card navy"><h3>⚓ Helm Display Panel</h3><p>Your compliance instruments on the boat's own screens via Signal K — permit clocks and arrival status next to speed and depth. The NOW zone is free for every boat, forever.</p></div>
-</div>
-<div class="note"><strong>Who it's for:</strong> cruising sailors and liveaboards crossing borders on their own boats; guests and crew joining someone else's boat; delivery skippers and professional crew (our Pro tier); and charter operators running trips for others.</div>
-</div></section>
+<header class="hdr" data-nav>
+  <div class="hdr-inner">
+    <a href="#top" class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2"/><line x1="12" y1="6.6" x2="12" y2="20"/><line x1="7" y1="10" x2="17" y2="10"/><path d="M5 14c0 3.5 3 6 7 6s7-2.5 7-6"/></svg>
+      <span class="brand-word">Sail<span>CoCo</span></span>
+    </a>
 
-<section id="pricing" style="background:var(--foam)"><div class="wrap">
-<h2>Pricing</h2>
-<p class="sub">Simple annual plans — one price, one renewal a year, cancel anytime. First-year introductory pricing shown; standard price applies from the first renewal. Prices in USD, exclusive of applicable taxes.</p>
-<div class="pricing-grid">
-<div class="plan"><h3>Free</h3><div class="price">$0</div><div class="intro">no card required</div>
-<ul><li>Trip Compliance for 1 country</li><li>2 vessel documents</li><li>CoCo Agent — 5 questions/day</li><li>Full Community access</li></ul></div>
-<div class="plan"><h3>Passenger Pass</h3><div class="price">$39<small>/yr</small></div><div class="intro">$25 first year</div>
-<ul><li>Up to 5 countries</li><li>Import Clock &amp; Drone Rules</li><li>Biosecurity &amp; Pet Import</li><li>CoCo Agent — 10 questions/day</li></ul></div>
-<div class="plan featured"><h3>Crew Pass</h3><div class="price">$139<small>/yr</small></div><div class="intro">$89 first year · most popular</div>
-<ul><li>Up to 10 countries</li><li>Every app, current &amp; future</li><li>Unlimited CoCo Agent</li><li>Full helm display panel</li></ul></div>
-<div class="plan navy"><h3>Pro Crew</h3><div class="price">$249<small>/yr</small></div><div class="intro">$159 first year</div>
-<ul><li>For delivery skippers &amp; paid crew</li><li>Unlimited countries</li><li>Crew visa &amp; Schengen day tracking</li><li>Multi-vessel ship's papers</li></ul></div>
-</div>
-<div class="onetime">
-<div><h3>⚓ Founding Crew — $299 one-time</h3><p style="margin:0;font-size:.9rem">Lifetime Crew Pass, limited to 150 seats, sold during a limited pre-launch window. No renewals, ever.</p></div>
-<div><h3>🧭 Passage Pack — $24.99 one-time</h3><p style="margin:0;font-size:.9rem">One route, up to 8 countries, 6 months of full access. No subscription — built for a single crossing or season.</p></div>
-</div>
-<p class="sub" style="margin-top:18px">Charter operators: vessel bundles from $44.99–$129.99/month (introductory $29.99–$84.99), monthly or annual billing, with invited crew and passengers joining free. <a href="mailto:support@sailcoco.com" style="color:var(--ocean)">Contact us</a> for details.</p>
-</div></section>
+    <nav class="nav" aria-label="Primary">
+      <button type="button" class="nav-btn" data-opens="product" aria-expanded="false" aria-controls="mega-product">Product
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <a href="coverage.html" class="nav-link" data-closes>Coverage</a>
+      <a href="#skipper" class="nav-link" data-closes>For Skippers</a>
+      <a href="pricing.html" class="nav-link" data-closes>Pricing</a>
+      <a href="#compare" class="nav-link" data-closes>Compare</a>
+      <a href="#developers" class="nav-link" data-closes>Developers</a>
+      <button type="button" class="nav-btn" data-opens="resources" aria-expanded="false" aria-controls="mega-resources">Resources
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </nav>
 
-<section id="refunds"><div class="wrap">
-<h2>Refund &amp; Cancellation Policy</h2>
-<p class="sub">The short version of what our <a href="terms.html" style="color:var(--ocean)">Terms of Service</a> provide:</p>
-<div class="refund">
-<h3 style="margin-top:0">Cancelling a subscription</h3>
-<p>Cancel anytime with one click in your account settings (or by email to support@sailcoco.com) — no phone call, no retention hoops. Cancellation stops future charges and takes effect at the end of your current billing period; you keep access until then. Amounts already charged for the current period are not refunded except where the law requires.</p>
-<h3>Renewals &amp; reminders</h3>
-<p>Annual plans renew once a year. We email a renewal reminder 15–45 days before each renewal, and a separate reminder 3–21 days before an introductory price steps up to the standard price.</p>
-<h3>One-time purchases</h3>
-<p>Founding Crew and Passage Pack do not auto-renew and no card is kept on file for them. A Passage Pack is not refundable once you create your route or its access window begins. If SailCoCo is discontinued within 24 months of a Founding Crew purchase, a pro-rata refund applies per our Terms.</p>
-<h3>App store purchases &amp; EU/UK customers</h3>
-<p>Purchases made through the Apple App Store or Google Play follow those stores' refund policies and processes. Consumers in the EEA and the United Kingdom have a 14-day right of withdrawal for digital services as described in our Terms.</p>
-</div>
-</div></section>
+    <div class="hdr-actions">
+      <a href="#login" class="nav-login">Log in</a>
+      <a href="#start" class="nav-cta">Start free</a>
+      <button type="button" class="burger" data-opens="mobile" aria-label="Menu" aria-expanded="false" aria-controls="mobile-panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
 
-<section id="about" style="background:var(--foam)"><div class="wrap">
-<h2>About SailCoCo</h2>
-<div class="about">
-<div><strong>The company.</strong> SailCoCo LLC is a California limited liability company building software for the international cruising community. The product is in active development, launching in 2027 with a pilot cohort covering 25 countries and expanding from there.</div>
-<div><strong>What we sell.</strong> Digital subscriptions and one-time digital passes to the SailCoCo web and mobile application — informational compliance reference content for trip planning. No physical goods. All content is informational only and is not legal, immigration, or customs advice.</div>
-<div><strong>Contact &amp; support.</strong><br>SailCoCo LLC<br>303 Twin Dolphin Drive, Suite 600<br>Redwood City, CA 94065, USA<br>Email: <a href="mailto:support@sailcoco.com" style="color:var(--ocean)">support@sailcoco.com</a><br>We answer support email within 2 business days.</div>
-</div>
-</div></section>
+  <div class="mobile-panel" id="mobile-panel" data-panel="mobile" hidden>
+    <div class="mobile-inner">
+      <div class="mobile-links">
+        <a href="coverage.html" class="mobile-link" data-closes>Coverage</a>
+        <a href="#skipper" class="mobile-link" data-closes>For Skippers</a>
+        <a href="pricing.html" class="mobile-link" data-closes>Pricing</a>
+        <a href="#compare" class="mobile-link" data-closes>Compare</a>
+        <a href="#developers" class="mobile-link" data-closes>Developers</a>
+        <a href="#resources" class="mobile-link" data-closes>Resources</a>
+        <a href="#login" class="mobile-link" data-closes>Log in</a>
+      </div>
+      <div>
+        <p class="mega-eyebrow" style="font-size:10.5px;margin:0 0 12px;">The suite</p>
+        <div class="mobile-suite">
+          <a href="#apps" data-closes>Trip Compliance</a>
+          <a href="#apps" data-closes>Document Vault</a>
+          <a href="#apps" data-closes>CoCo Agent</a>
+          <a href="#apps" data-closes>Community</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<footer>
-<div><strong>Sail<span style="color:var(--gold)">CoCo</span></strong> — the cruising compliance copilot</div>
-<div class="legal-line">© 2026 SailCoCo LLC · Redwood City, California · <a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · <a href="index.html#refunds">Refund &amp; Cancellation Policy</a> · <a href="mailto:support@sailcoco.com">support@sailcoco.com</a></div>
-<div class="legal-line">Charges from SailCoCo appear on card statements as <strong>SAILCOCO</strong>.</div>
+  <div class="mega" id="mega-product" data-panel="product" hidden>
+    <div class="mega-inner">
+      <div>
+        <p class="mega-eyebrow">The suite</p>
+        <div class="mega-grid">
+          <a href="#apps" class="mega-item">
+            <p>Trip Compliance</p>
+            <p>Entry rules per country, kept current</p>
+          </a>
+          <a href="#apps" class="mega-item">
+            <p>Document Vault</p>
+            <p>Ship's papers, ready before customs asks</p>
+          </a>
+          <a href="#apps" class="mega-item">
+            <p>CoCo Agent</p>
+            <p>Ask in plain language, offline-tolerant</p>
+          </a>
+          <a href="#apps" class="mega-item">
+            <p>Community</p>
+            <p>Reports from boats that just cleared in</p>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="mega-eyebrow">By who you are</p>
+        <div class="mega-grid">
+          <a href="#skipper" class="mega-item">
+            <p>Bluewater cruisers</p>
+            <p>Multi-country passages, no cap</p>
+          </a>
+          <a href="#skipper" class="mega-item">
+            <p>Skippers &amp; charter</p>
+            <p>Crew and guests on one plan</p>
+          </a>
+          <a href="#apps" class="mega-item">
+            <p>Crew &amp; passengers</p>
+            <p>Invited free by your skipper</p>
+          </a>
+          <a href="#developers" class="mega-item">
+            <p>Developers</p>
+            <p>REST, MCP, Signal K</p>
+          </a>
+        </div>
+      </div>
+      <div class="mega-card">
+        <span class="mega-card-tag">Early access</span>
+        <p style="margin:0;font-size:15px;font-weight:600;line-height:1.4;color:var(--on-dark);">Every plan ships the full suite.</p>
+        <p style="margin:0;font-size:13px;line-height:1.55;color:oklch(0.68 0.02 220);">New apps join your subscription automatically — no upsell, no add-on tiers.</p>
+        <a href="#pricing" style="font-size:13.5px;font-weight:600;margin-top:2px;">See pricing →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mega" id="mega-resources" data-panel="resources" hidden>
+    <div class="mega-inner-4">
+      <a href="#resources" class="mega-item mega-item-lg">
+        <p>Country guides</p>
+        <p>Clearance walkthroughs, port by port</p>
+      </a>
+      <a href="#resources" class="mega-item mega-item-lg">
+        <p>Dispatch</p>
+        <p>Rule changes as they land</p>
+      </a>
+      <a href="#resources" class="mega-item mega-item-lg">
+        <p>Field notes</p>
+        <p>What actually happens at the dock</p>
+      </a>
+      <a href="#developers" class="mega-item mega-item-lg">
+        <p>API docs</p>
+        <p>REST and MCP reference</p>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section id="top" class="bb-dark" style="position:relative;overflow:hidden;min-height:640px;background:var(--abyss);">
+  <div style="position:absolute;inset:0;">
+    <sc-globe></sc-globe>
+  </div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,oklch(0.15 0.035 220) 0%,oklch(0.15 0.035 220 / 0.90) 30%,oklch(0.15 0.035 220 / 0.30) 55%,oklch(0.15 0.035 220 / 0) 78%);"></div>
+
+  <div class="wrap pt-104 pb-88" style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:center;">
+    <div>
+      <h1 class="h1-hero">Clear in anywhere.<br><span style="color:var(--sky);">Without the guesswork.</span></h1>
+      <p style="margin:26px 0 0;max-width:540px;font-size:19px;line-height:1.55;color:var(--muted);text-wrap:pretty;">Entry requirements, ship's papers, and first-hand reports from boats that just cleared in — one command center instead of six browser tabs and a forum thread from 2019.</p>
+      <div class="btn-row" style="margin-top:36px;">
+        <a href="#start" class="btn btn-gold">Start free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#compare" class="btn btn-outline">Compare to Noonsite</a>
+      </div>
+      <p class="sec-badge" style="margin-top:24px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        No credit card, ever — the Free plan is always free
+      </p>
+    </div>
+
+    <div style="background:oklch(0.19 0.035 220 / 0.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid oklch(0.32 0.03 220);border-radius:12px;padding:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <p style="margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:0.13em;text-transform:uppercase;color:var(--meta);">Trip planner</p>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--sky-light);background:oklch(0.70 0.16 200 / 0.16);padding:4px 9px;border-radius:100px;">
+          <span style="width:5px;height:5px;border-radius:50%;background:var(--sky);"></span>Hot CoCo
+        </span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-top:16px;">
+        <div style="flex:1;min-width:0;">
+          <p style="margin:0;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.58 0.02 220);">Depart</p>
+          <p style="margin:5px 0 0;font-size:14.5px;font-weight:600;color:oklch(0.96 0.005 220);">Fort Lauderdale</p>
+          <p style="margin:2px 0 0;font-family:var(--mono);font-size:11px;color:oklch(0.68 0.02 220);">14 Nov</p>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;" aria-hidden="true"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+        <div style="flex:1;min-width:0;text-align:right;">
+          <p style="margin:0;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.58 0.02 220);">Arrive</p>
+          <p style="margin:5px 0 0;font-size:14.5px;font-weight:600;color:oklch(0.96 0.005 220);">Nassau, Bahamas</p>
+          <p style="margin:2px 0 0;font-family:var(--mono);font-size:11px;color:oklch(0.68 0.02 220);">16 Nov</p>
+        </div>
+      </div>
+
+      <div style="height:1px;background:var(--line-dark-mid);margin:18px 0 16px;"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+        <p style="margin:0;font-size:13px;font-weight:600;color:oklch(0.94 0.01 220);">Entry facts for arrival</p>
+        <p style="margin:0;font-family:var(--mono);font-size:10.5px;color:var(--meta);">9 fields</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="background:var(--abyss-tile);border-radius:8px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.95 0.01 220);">Cruising Permit</p>
+            <p style="margin:2px 0 0;font-size:12.5px;color:oklch(0.74 0.02 220);">Required · apply at the port of entry</p>
+          </div>
+          <span class="chip chip-high" style="font-size:9.5px;padding:4px 8px;flex-shrink:0;">High</span>
+        </div>
+        <div style="background:var(--abyss-tile);border-radius:8px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.95 0.01 220);">Q Flag</p>
+            <p style="margin:2px 0 0;font-size:12.5px;color:oklch(0.74 0.02 220);">Fly on entering port until cleared</p>
+          </div>
+          <span class="chip chip-high" style="font-size:9.5px;padding:4px 8px;flex-shrink:0;">High</span>
+        </div>
+        <div style="background:var(--abyss-tile);border-radius:8px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.95 0.01 220);">Visa</p>
+            <p style="margin:2px 0 0;font-size:12.5px;color:oklch(0.74 0.02 220);">Not required for most nationalities</p>
+          </div>
+          <span class="chip chip-high" style="font-size:9.5px;padding:4px 8px;flex-shrink:0;">High</span>
+        </div>
+        <div style="background:var(--abyss-tile);border-radius:8px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.95 0.01 220);">AIS</p>
+            <p style="margin:2px 0 0;font-size:12.5px;color:oklch(0.74 0.02 220);">Required for vessels 50 ft and over</p>
+          </div>
+          <span class="chip chip-medium" style="font-size:9.5px;padding:4px 8px;flex-shrink:0;">Medium</span>
+        </div>
+        <div style="background:var(--abyss-tile);border-radius:8px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.95 0.01 220);">Firearms &amp; Weapons</p>
+            <p style="margin:2px 0 0;font-size:12.5px;color:oklch(0.74 0.02 220);">Declare on arrival · max 3, up to .308</p>
+          </div>
+          <span class="chip chip-high" style="font-size:9.5px;padding:4px 8px;flex-shrink:0;">High</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;">
+        <p style="margin:0;font-family:var(--mono);font-size:10.5px;color:var(--meta);">Every field cited · verified 2026-08-27</p>
+        <a href="coverage.html" style="font-size:12.5px;font-weight:600;white-space:nowrap;">See sources →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STAT BAND ===== -->
+<section class="sec-raised bb-dark">
+  <div class="wrap pad-34" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;">
+    <div>
+      <p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.03em;color:var(--on-dark);">4 apps</p>
+      <p style="margin:6px 0 0;font-size:13.5px;line-height:1.5;color:oklch(0.68 0.02 220);">On every plan, including the cheapest one</p>
+    </div>
+    <div>
+      <p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.03em;color:var(--on-dark);">Sourced</p>
+      <p style="margin:6px 0 0;font-size:13.5px;line-height:1.5;color:oklch(0.68 0.02 220);">Every requirement links to the authority that issued it</p>
+    </div>
+    <div>
+      <p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.03em;color:var(--on-dark);">Offline</p>
+      <p style="margin:6px 0 0;font-size:13.5px;line-height:1.5;color:oklch(0.68 0.02 220);">Cold CoCo runs from your last sync, on almost no battery</p>
+    </div>
+    <div>
+      <p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.03em;color:var(--on-dark);">Signal K</p>
+      <p style="margin:6px 0 0;font-size:13.5px;line-height:1.5;color:oklch(0.68 0.02 220);">Pipes into the chartplotter you already run</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APPS ===== -->
+<section id="apps" class="sec-light">
+  <div class="wrap pad-104">
+    <div class="row-end">
+      <div class="measure-640">
+        <p class="eyebrow eyebrow-dim">Product</p>
+        <h2 class="h2 on-light">Four apps. One subscription. No add-on tiers.</h2>
+      </div>
+      <p style="margin:0;max-width:340px;font-size:16px;line-height:1.6;color:var(--ink-body);">Each one solves a job cruisers currently do by hand. Together they replace the whole paper trail.</p>
+    </div>
+
+    <div class="grid grid-250 mt-56">
+      <div class="card-light">
+        <div class="icon-well" style="background:oklch(0.94 0.03 200);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.45 0.11 210)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.3 5.2-5.2 2.3 2.3-5.2z"/></svg>
+        </div>
+        <h3>Trip Compliance</h3>
+        <p>Visas, permits, customs windows and fees for every country on the route — each field traced to its source and dated.</p>
+        <a href="#apps" class="card-link">How it works →</a>
+      </div>
+      <div class="card-light">
+        <div class="icon-well" style="background:oklch(0.95 0.035 85);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.52 0.10 75)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Document Vault</h3>
+        <p>Registration, insurance, crew passports and clearance receipts — encrypted, cached on the boat, ready before the officer asks.</p>
+        <a href="#apps" class="card-link">How it works →</a>
+      </div>
+      <div class="card-light">
+        <div class="icon-well" style="background:oklch(0.94 0.03 265);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.45 0.10 265)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v10H9l-4 4V5z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="12" x2="13" y2="12"/></svg>
+        </div>
+        <h3>CoCo Agent</h3>
+        <p>Ask "do I need a transire for the next island?" and get an answer with the citation attached. Degrades gracefully on bad signal.</p>
+        <a href="#apps" class="card-link">How it works →</a>
+      </div>
+      <div class="card-light">
+        <div class="icon-well" style="background:oklch(0.94 0.03 150);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.45 0.09 155)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-2.5 3-4 5.3-4 7.5a4 4 0 0 0 8 0C16 8.3 14.5 6 12 3z"/><path d="M3 19c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"/></svg>
+        </div>
+        <h3>Community</h3>
+        <p>Structured reports from boats that cleared in this week — hold points, office hours, what the fee actually was.</p>
+        <a href="#apps" class="card-link">How it works →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARE ===== -->
+<section id="compare" class="sec-dark bt-dark">
+  <div class="wrap pad-104">
+    <div class="measure-680">
+      <p class="eyebrow eyebrow-gold">Compare</p>
+      <h2 class="h2 on-dark">Cruisers already stitch this together from four sites. That's the problem.</h2>
+      <p class="lead-dark">Noonsite, Navily, NoForeignLand and the forums are all genuinely useful. None of them was built to get one specific boat, with one specific crew, legally into the next country.</p>
+    </div>
+
+    <div class="table-wrap mt-52">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th scope="col" class="cap">Capability</th>
+            <th scope="col" class="us">SailCoCo</th>
+            <th scope="col" class="them">Noonsite</th>
+            <th scope="col" class="them">Navily</th>
+            <th scope="col" class="them">NoForeignLand</th>
+            <th scope="col" class="them">Cruisers Forum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cap">Sourced, dated entry requirements</td>
+            <td class="us">Every field cited &amp; dated</td>
+            <td class="them">Editorial reports, update dates vary</td>
+            <td class="them soft">Not the focus</td>
+            <td class="them">Crowd notes, unstructured</td>
+            <td class="them">Threads, often years old</td>
+          </tr>
+          <tr>
+            <td class="cap">Per-country coverage</td>
+            <td class="us">Route-scoped, plan sets the cap</td>
+            <td class="them">Broad global directory</td>
+            <td class="them">Anchorages &amp; marinas</td>
+            <td class="them">Wherever cruisers post</td>
+            <td class="them">Wherever members sail</td>
+          </tr>
+          <tr>
+            <td class="cap">Document vault for ship's papers</td>
+            <td class="us">Encrypted, offline-cached</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+          </tr>
+          <tr>
+            <td class="cap">AI assistant with citations</td>
+            <td class="us">CoCo Agent</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+          </tr>
+          <tr>
+            <td class="cap">Works offline / low bandwidth</td>
+            <td class="us">Cached by design</td>
+            <td class="them">Website</td>
+            <td class="them">App, partial offline</td>
+            <td class="them">App &amp; web</td>
+            <td class="them">Website</td>
+          </tr>
+          <tr>
+            <td class="cap">Live reports from recent arrivals</td>
+            <td class="us">Structured, tied to the rule</td>
+            <td class="them">Reader submissions</td>
+            <td class="them">Anchorage reviews</td>
+            <td class="them">Boat-to-boat posts</td>
+            <td class="them">Thread replies</td>
+          </tr>
+          <tr>
+            <td class="cap">Crew &amp; passenger management</td>
+            <td class="us">Manifest, free berths</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+          </tr>
+          <tr>
+            <td class="cap">Developer API</td>
+            <td class="us">REST, MCP, Signal K</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+            <td class="them none">—</td>
+          </tr>
+          <tr>
+            <td class="cap">Mobile apps</td>
+            <td class="us">iOS &amp; Android — coming</td>
+            <td class="them">Web only</td>
+            <td class="them">iOS &amp; Android</td>
+            <td class="them">iOS &amp; Android</td>
+            <td class="them">Web only</td>
+          </tr>
+          <tr>
+            <td class="cap">Pricing</td>
+            <td class="us">Free tier, then $39–$249/yr</td>
+            <td class="them">Free + membership</td>
+            <td class="them">Free + premium</td>
+            <td class="them">Free</td>
+            <td class="them">Free</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row-between mt-18">
+      <p class="footnote measure-640">Compiled from publicly documented features, September 2026. Corrections welcome — we'd rather be accurate than flattering.</p>
+      <a href="#compare" style="font-size:14px;font-weight:600;">Full comparison →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKIPPER ===== -->
+<section id="skipper" class="sec-light-alt">
+  <div class="wrap pad-104 split-320">
+    <div>
+      <p class="eyebrow eyebrow-dim">For Skippers</p>
+      <h2 class="h2-md on-light">Running the trip for other people? Bring them all aboard one plan.</h2>
+      <p class="lead-light">A Skipper bundle covers your vessel, unlimited Trip Compliance countries, and berths for crew and passengers — invited free, no card to accept. Everyone gets the full app at the level you assign.</p>
+      <a href="#pricing" class="btn btn-outline-ink btn-sm" style="margin-top:30px;">See Skipper bundles
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="stack">
+      <div class="step-light">
+        <span class="step-num">01</span>
+        <div>
+          <p>Add your vessel</p>
+          <p>Subscribe as Skipper. Trip Compliance runs with no country cap.</p>
+        </div>
+      </div>
+      <div class="step-light">
+        <span class="step-num">02</span>
+        <div>
+          <p>Fill the Manifest</p>
+          <p>Add crew and passengers by email. Each takes a berth from your bundle.</p>
+        </div>
+      </div>
+      <div class="step-light">
+        <span class="step-num">03</span>
+        <div>
+          <p>They accept, free</p>
+          <p>No card. They see the trip and every app at the access level you set.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING SUMMARY ===== -->
+<section id="pricing" class="sec-light bt-light">
+  <div class="wrap pad-104">
+    <div class="center measure-620" style="margin:0 auto;">
+      <p class="eyebrow eyebrow-dim">Pricing</p>
+      <h2 class="h2-md on-light">Introductory rates while we're in early access.</h2>
+      <p style="margin:16px 0 0;font-size:16.5px;line-height:1.6;color:var(--ink-body);">Annual billing, all four apps included. The discount applies to your first year.</p>
+    </div>
+
+    <div class="grid grid-250 mt-56">
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:30px 26px;display:flex;flex-direction:column;gap:14px;position:relative;">
+        <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);">Free</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);">One country, to see how this works.</p>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:6px;flex-wrap:wrap;">
+          <span style="font-size:34px;font-weight:700;letter-spacing:-0.04em;color:var(--ink);">$0</span>
+        </div>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:oklch(0.52 0.02 220);">Free forever · no card</p>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;color:oklch(0.52 0.02 220);">1 country · 2 documents<br>5 agent messages / day</p>
+        <a href="pricing.html" style="margin-top:auto;text-align:center;font-size:14.5px;font-weight:600;color:oklch(0.22 0.03 220);border:1px solid oklch(0.80 0.01 220);padding:12px;border-radius:8px;">Start free</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:30px 26px;display:flex;flex-direction:column;gap:14px;position:relative;">
+        <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);">Passenger</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);">Crewing on someone else's boat.</p>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:6px;flex-wrap:wrap;">
+          <span style="font-size:34px;font-weight:700;letter-spacing:-0.04em;color:var(--ink);">$25</span>
+          <span style="font-size:16px;font-weight:500;color:oklch(0.60 0.02 220);text-decoration:line-through;">$39</span>
+        </div>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:oklch(0.52 0.02 220);">First year · then $39/yr</p>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;color:oklch(0.52 0.02 220);">5 countries · 5 documents<br>25 agent messages / day</p>
+        <a href="pricing.html" style="margin-top:auto;text-align:center;font-size:14.5px;font-weight:600;color:oklch(0.22 0.03 220);border:1px solid oklch(0.80 0.01 220);padding:12px;border-radius:8px;">Choose Passenger</a>
+      </div>
+      <div style="background:oklch(0.21 0.05 210);border:1px solid var(--sky);border-radius:12px;padding:30px 26px;display:flex;flex-direction:column;gap:14px;position:relative;">
+        <span style="position:absolute;top:-11px;left:24px;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;color:var(--abyss);background:var(--sky);padding:5px 11px;border-radius:100px;">Most popular</span>
+        <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark-hi);">Crew</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:oklch(0.80 0.02 210);">Running your own trip, on your own boat.</p>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:6px;flex-wrap:wrap;">
+          <span style="font-size:34px;font-weight:700;letter-spacing:-0.04em;color:var(--on-dark-hi);">$89</span>
+          <span style="font-size:16px;font-weight:500;color:oklch(0.66 0.03 210);text-decoration:line-through;">$139</span>
+        </div>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:var(--gold-hover);">First year · then $139/yr</p>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;color:oklch(0.78 0.02 210);">10 countries · unlimited documents<br>100 agent messages / day</p>
+        <a href="pricing.html" style="margin-top:auto;text-align:center;font-size:14.5px;font-weight:600;color:var(--abyss);background:var(--gold);padding:12px;border-radius:8px;">Choose Crew</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:30px 26px;display:flex;flex-direction:column;gap:14px;position:relative;">
+        <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);">Pro Crew</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);">Long-haul cruising, no country ceiling.</p>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:6px;flex-wrap:wrap;">
+          <span style="font-size:34px;font-weight:700;letter-spacing:-0.04em;color:var(--ink);">$159</span>
+          <span style="font-size:16px;font-weight:500;color:oklch(0.60 0.02 220);text-decoration:line-through;">$249</span>
+        </div>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.6;color:oklch(0.52 0.02 220);">First year · then $249/yr</p>
+        <p style="margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;color:oklch(0.52 0.02 220);">Unlimited countries &amp; documents<br>250 agent messages / day</p>
+        <a href="pricing.html" style="margin-top:auto;text-align:center;font-size:14.5px;font-weight:600;color:oklch(0.22 0.03 220);border:1px solid oklch(0.80 0.01 220);padding:12px;border-radius:8px;">Choose Pro Crew</a>
+      </div>
+    </div>
+    <p class="center" style="margin:36px 0 0;"><a href="pricing.html" style="font-size:14.5px;font-weight:600;">Full pricing, one-time options and Skipper bundles →</a></p>
+  </div>
+</section>
+
+<!-- ===== DEVELOPERS ===== -->
+<section id="developers" class="sec-dark bt-dark">
+  <div class="wrap pad-96 split-300">
+    <div>
+      <p class="eyebrow eyebrow-gold">Developers</p>
+      <h2 style="margin:16px 0 0;font-size:clamp(28px,3vw,38px);line-height:1.08;letter-spacing:-0.03em;font-weight:700;color:var(--on-dark-hi);text-wrap:balance;">Put compliance data on the chartplotter.</h2>
+      <p style="margin:18px 0 0;font-size:16.5px;line-height:1.6;color:var(--muted);max-width:520px;text-wrap:pretty;">One REST API, one MCP server, Signal K-shaped output. In development — the waitlist gets keys first.</p>
+      <div class="btn-row" style="margin-top:28px;">
+        <a href="developers.html" class="btn btn-outline btn-sm">Read the docs preview</a>
+      </div>
+    </div>
+    <div class="code-block">
+      <p class="code-label">GET /v1/countries/BS/requirements</p>
+      <pre><span class="tok-brace">{</span>
+  <span class="tok-key">"country"</span>: <span class="tok-str">"Bahamas"</span>,
+  <span class="tok-key">"cruising_permit"</span>: <span class="tok-str">"required"</span>,
+  <span class="tok-key">"max_stay_days"</span>: <span class="tok-num">180</span>,
+  <span class="tok-key">"source_updated"</span>: <span class="tok-str">"2026-08-14"</span>
+<span class="tok-brace">}</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOT / COLD ===== -->
+<section id="hotcold" class="sec-light bt-dark">
+  <div class="wrap pad-104">
+    <div class="measure-660">
+      <p class="eyebrow eyebrow-dim">Hot / Cold CoCo</p>
+      <h2 class="h2 on-light">One tap between connected and conserving.</h2>
+      <p style="margin:20px 0 0;font-size:17px;line-height:1.6;color:var(--ink-body);text-wrap:pretty;">Offshore, battery and signal are the same problem. Hot CoCo is live. Cold CoCo runs from your last sync and stops spending power on anything that needs a connection. The switch is one tap from the home screen, from Account, or from the badge in the corner of every screen.</p>
+    </div>
+
+    <div class="grid grid-320 mt-52">
+      <div style="background:var(--white);border:1px solid var(--line-light);border-top:3px solid oklch(0.62 0.16 40);border-radius:12px;padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="width:8px;height:8px;border-radius:50%;background:oklch(0.62 0.16 40);"></span>
+          <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);">Hot CoCo</h3>
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.45 0.12 40);background:oklch(0.95 0.03 40);padding:4px 9px;border-radius:100px;">Default · live</span>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:var(--ink-body);">Connected and researching. The agent verifies against live sources, every screen shows current data, and chat is open in-app, over WhatsApp/SMS, and in Live Translate.</p>
+        <div style="height:1px;background:oklch(0.92 0.008 220);"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">Live source-verified research</p>
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">Document scanning</p>
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">In-app chat and Live Translate</p>
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">Daily agent message cap applies</p>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--line-light);border-top:3px solid oklch(0.62 0.13 235);border-radius:12px;padding:30px 28px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="width:8px;height:8px;border-radius:50%;background:oklch(0.62 0.13 235);"></span>
+          <h3 style="margin:0;font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);">Cold CoCo</h3>
+          <span style="font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:oklch(0.42 0.11 235);background:oklch(0.94 0.025 235);padding:4px 9px;border-radius:100px;">Underway</span>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:var(--ink-body);">Deliberately conserving. Live chat, scanning and Live Translate pause; chat falls back to WhatsApp/SMS, which only needs cell signal. Screens keep working from whatever was already synced.</p>
+        <div style="background:oklch(0.96 0.012 235);border:1px solid oklch(0.88 0.025 235);border-radius:9px;padding:14px 16px;">
+          <p style="margin:0;font-size:13.5px;font-weight:600;color:oklch(0.32 0.06 235);">Showing data as of last sync, 6:42 AM</p>
+          <p style="margin:5px 0 0;font-size:13px;line-height:1.5;color:oklch(0.45 0.03 235);">Offline-friendly screens keep working · live chat and scanning pause to save battery</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">App help and your saved trip, from synced data</p>
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">Chat continues over WhatsApp/SMS</p>
+          <p style="margin:0;font-size:14px;color:oklch(0.30 0.02 220);">Live research paused, with one tap back to Hot</p>
+          <p style="margin:0;font-size:14px;font-weight:600;color:oklch(0.35 0.09 235);">Agent questions become unlimited — no daily cap</p>
+        </div>
+      </div>
+    </div>
+    <p style="margin:22px 0 0;font-family:var(--mono);font-size:11.5px;line-height:1.7;color:oklch(0.50 0.02 220);max-width:720px;">Cold CoCo lifts the daily cap because it isn't making the expensive live-research calls the cap exists to meter. Ask it anything about the app or your trip, all day, on almost no power.</p>
+  </div>
+</section>
+
+<!-- ===== INFRASTRUCTURE ===== -->
+<section id="infrastructure" class="sec-dark bt-dark">
+  <div class="wrap pad-104">
+    <div class="measure-700">
+      <p class="eyebrow eyebrow-gold">Infrastructure — Google Cloud Platform</p>
+      <h2 class="h2 on-dark">Built like the sea demands it.</h2>
+      <p style="margin:20px 0 0;font-size:18px;line-height:1.6;color:oklch(0.80 0.015 220);text-wrap:pretty;">SailCoCo runs on the same class of infrastructure that keeps the world's largest consumer apps online — <strong style="color:oklch(0.95 0.005 220);font-weight:600;">self-healing, auto-scaling, and secured by default</strong> — so the compliance data you're depending on offshore is always there when you need it.</p>
+    </div>
+
+    <div class="grid grid-290 mt-52">
+      <div class="card-dark">
+        <p style="margin:0;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--gold);">01</p>
+        <h3 style="margin:0;font-size:21px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);">Always On</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:2px;">
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Self-healing infrastructure that resolves most issues before anyone notices</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Auto-scales instantly with demand — no downtime, no capacity limits</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Zero-downtime releases, verified live before they ever reach you</p>
+        </div>
+      </div>
+      <div class="card-dark">
+        <p style="margin:0;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--gold);">02</p>
+        <h3 style="margin:0;font-size:21px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);">Locked Down</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:2px;">
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Every credential encrypted; every service runs least-privilege, isolated</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Google-grade identity and a web application firewall on every endpoint</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Your data is never exposed directly — every access is authenticated</p>
+        </div>
+      </div>
+      <div class="card-dark">
+        <p style="margin:0;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--gold);">03</p>
+        <h3 style="margin:0;font-size:21px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);">Engineered to Scale</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:2px;">
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Modular services that ship, scale, and upgrade independently</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">Infrastructure defined as code — reproducible, auditable, no guesswork</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--muted);">AI-native compliance research, every fact backed by a real source</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-between mt-28" style="padding-top:24px;border-top:1px solid var(--line-dark-card);">
+      <p style="margin:0;display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;color:oklch(0.68 0.02 220);"><span style="width:6px;height:6px;border-radius:50%;background:var(--sky);"></span>Live production architecture</p>
+      <p style="margin:0;font-family:var(--mono);font-size:11.5px;color:var(--meta);">Google Cloud Platform · September 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE DISPATCH ===== -->
+<section class="sec-raised bt-dark">
+  <div class="wrap pad-80 split-300-48">
+    <div>
+      <h2 class="h2-xs on-dark">The Dispatch</h2>
+      <p style="margin:14px 0 0;font-size:16px;line-height:1.6;color:var(--muted);max-width:460px;">Entry-requirement changes and new features. Roughly monthly, no filler.</p>
+    </div>
+    <form style="display:flex;gap:10px;flex-wrap:wrap;" onsubmit="return false;">
+      <label for="dispatch-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Email address</label>
+      <input id="dispatch-email" type="email" class="email-input" placeholder="you@yourboat.com">
+      <button type="submit" class="btn btn-gold" style="font-size:15px;padding:14px 26px;">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap" style="padding-top:clamp(44px,4.9vw,64px);padding-bottom:32px;">
+    <div class="footer-grid">
+      <div style="min-width:200px;">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.70 0.16 200)" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2"/><line x1="12" y1="6.6" x2="12" y2="20"/><line x1="7" y1="10" x2="17" y2="10"/><path d="M5 14c0 3.5 3 6 7 6s7-2.5 7-6"/></svg>
+          <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em;color:var(--on-dark);">Sail<span style="color:var(--sky);">CoCo</span></span>
+        </div>
+        <p style="margin:14px 0 0;font-size:13.5px;line-height:1.6;color:var(--meta);max-width:240px;">Compliance and cruiser intelligence for offshore sailors.</p>
+      </div>
+      <div>
+        <p class="footer-head">Product</p>
+        <div class="footer-col">
+          <a href="#apps">Trip Compliance</a>
+          <a href="#apps">Document Vault</a>
+          <a href="#apps">CoCo Agent</a>
+          <a href="#apps">Community</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">Skippers</p>
+        <div class="footer-col">
+          <a href="#skipper">Skipper Program</a>
+          <a href="#skipper">Manifest &amp; invites</a>
+          <a href="#skipper">Fleet Skipper</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">Developers</p>
+        <div class="footer-col">
+          <a href="developers.html">API &amp; MCP</a>
+          <a href="developers.html#quickstart">Documentation</a>
+          <a href="developers.html#signalk">Signal K</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-head">Company</p>
+        <div class="footer-col">
+          <a href="#about">About</a>
+          <a href="#compare">Compare</a>
+          <a href="#contact">Contact</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-meta">© 2026 SailCoCo LLC · Fair winds and following seas</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <span class="footer-meta">App Store — soon</span>
+        <span class="footer-meta">Google Play — soon</span>
+      </div>
+    </div>
+  </div>
 </footer>
 
+</div>
+
+<script src="assets/vendor/d3-array.min.js"></script>
+<script src="assets/vendor/d3-geo.min.js"></script>
+<script src="assets/vendor/topojson-client.min.js"></script>
+<script src="assets/globe.js"></script>
+<script src="assets/nav.js"></script>
 </body>
 </html>
