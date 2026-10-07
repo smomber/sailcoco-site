@@ -1,0 +1,26 @@
+name: Legal page complete
+
+# legal.html carries a placeholder for the EU legal representative's details until the appointment
+# documentation arrives. This check is RED while the placeholder is present, so the page cannot be
+# merged (and therefore cannot publish) in that state. It goes green when the block is filled in.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  legal-page-complete:
+    name: Legal page complete
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail while the EU representative block is still a placeholder
+        run: |
+          if grep -n "PENDING-EU-REPRESENTATIVE\|data-pending=" legal.html; then
+            echo "::error file=legal.html::The EU representative block is still a placeholder; this page must not be published in this form."
+            exit 1
+          fi
+          echo "legal.html has no placeholder."
