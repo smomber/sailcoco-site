@@ -1,8 +1,10 @@
 name: Legal page complete
 
-# legal.html carries a placeholder for the EU legal representative's details until the appointment
-# documentation arrives. This check is RED while the placeholder is present, so the page cannot be
-# merged (and therefore cannot publish) in that state. It goes green when the block is filled in.
+# legal.html carried a placeholder for the EU legal representative's details until the appointment
+# documentation arrived. This check is RED while a placeholder is present, so the page cannot be
+# merged (and therefore cannot publish) in that state. Since the details were filled in (7 Oct 2026)
+# it also fails if any required contact detail goes missing, or the old "will be published upon
+# appointment" wording returns.
 on:
   pull_request:
   push:
@@ -24,3 +26,18 @@ jobs:
             exit 1
           fi
           echo "legal.html has no placeholder."
+      - name: Fail if a required contact detail is missing or the pre-appointment wording is back
+        run: |
+          missing=0
+          for needle in 'digitalrequest@datarep.com' 'datarequest@datarep.com' 'www.datarep.com/data-request' '77 Camden Street Lower' '107-111 Fleet Street' 'Leutschenbachstrasse 95' '+353 1 919 8899' 'privacy@sailcoco.com' 'support@sailcoco.com' 'quoting "SailCoCo LLC"'; do
+            if ! grep -q -F -- "$needle" legal.html; then
+              echo "::error file=legal.html::required text is missing: $needle"
+              missing=1
+            fi
+          done
+          if grep -n -i "upon appointment\|will be published on this page" legal.html; then
+            echo "::error file=legal.html::the pre-appointment wording is back; the details are published on this page now."
+            missing=1
+          fi
+          [ "$missing" -eq 0 ] || exit 1
+          echo "legal.html carries every required contact detail."
