@@ -29,7 +29,7 @@ jobs:
       - name: Fail if a required contact detail is missing or the pre-appointment wording is back
         run: |
           missing=0
-          for needle in 'digitalrequest@datarep.com' 'datarequest@datarep.com' 'www.datarep.com/data-request' '77 Camden Street Lower' '107-111 Fleet Street' 'Leutschenbachstrasse 95' '+353 1 919 8899' 'privacy@sailcoco.com' 'support@sailcoco.com' 'quoting "SailCoCo LLC"'; do
+          for needle in 'digitalrequest@datarep.com' 'datarequest@datarep.com' 'www.datarep.com/data-request' '77 Camden Street Lower' '107-111 Fleet Street' 'Leutschenbachstrasse 95' '+353 1 919 8899' 'privacy@sailcoco.com' 'support@sailcoco.com' 'security@sailcoco.com' 'quoting "SailCoCo LLC"'; do
             if ! grep -q -F -- "$needle" legal.html; then
               echo "::error file=legal.html::required text is missing: $needle"
               missing=1
