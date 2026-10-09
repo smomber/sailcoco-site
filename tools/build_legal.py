@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build terms.html, privacy.html and (once hasLegalPage is true) legal.html from legal-sources/*.json (see tools/legal_lib.py for the rule: copied, never drafted).
+"""Build terms.html, privacy.html, developers.html and (once hasLegalPage is true) legal.html from legal-sources/ (see tools/legal_lib.py for the rule: copied, never drafted).
 
 usage: python3 tools/build_legal.py            write the pages
        python3 tools/build_legal.py --check    exit 1 if a committed page differs from what the sources generate (CI runs this)
@@ -10,6 +10,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import legal_lib as L  # noqa: E402
 import legal_md  # noqa: E402
+import developers_page  # noqa: E402
 
 DOCS = {
     'terms': {'out': 'terms.html', 'title': 'Terms of Service — SailCoCo'},
@@ -29,6 +30,7 @@ def build():
         md = open(os.path.join(L.ROOT, 'legal-sources', 'legal.md'), encoding='utf-8').read()
         content, _ = legal_md.convert(md, L.date_text(cfg))
         pages['legal.html'] = L.page_html('Legal information \u2014 SailCoCo', content, True)
+    pages['developers.html'] = L.page_html('Developer plans \u2014 SailCoCo', developers_page.content(L.load_json('legal-sources/developer-figures.json'), cfg), cfg['hasLegalPage'])
     return pages
 
 

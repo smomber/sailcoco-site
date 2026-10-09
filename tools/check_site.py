@@ -8,7 +8,11 @@ Groups (the site publication rules of 9 Oct 2026):
   text        each page's text equals its source text, block by block, after whitespace normalisation, with ONLY the documented edits (legal-sources/edits.json)
   dates       no blank date line is left; the pages carry the publication date from site-config.json
   legal       legal.html is the approved text word for word (block by block, and again as one blob by an independent method), carries every required contact detail, no placeholder
-  banned      the old plan names and any freshness guarantee or credit appear on none of the checked pages; no registered-trademark symbol
+  figures     index.html and developers.html: every element carrying data-src is checked against its source (a Terms clause, the developer figures table, or the legal page text), and any money or number-with-unit
+              in the pricing, refund and hero regions or on the developers page that has no data-src fails
+  labels      every consumer plan says "Available at launch" and every developer plan the general-availability wording; no button, form or input on any page; no buy or checkout link
+  banned      EVERY page in the repository (discovered, not listed): no retired plan name (whole word, any case, in the text a visitor reads), no freshness guarantee or credit, no registered-trademark symbol;
+              and, on every page except counsel's Terms and Privacy Policy, no introductory-price, first-year or step-up wording and no "Refund & Cancellation Policy" summary
   footer      every checked page's footer links to Terms, Privacy (and Legal once legal.html exists) and carries the trademark line exactly
   links       every local link and anchor resolves
   scripts     the checked pages load no script and no external resource (so no analytics and no cookies are possible; the consent gate has nothing to gate)
@@ -18,6 +22,7 @@ import os
 import re
 import subprocess
 import sys
+from html.parser import HTMLParser
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import legal_lib as L  # noqa: E402
@@ -56,8 +61,55 @@ def read(path):
         return f.read()
 
 
+CORE_PAGES = ['index.html', 'terms.html', 'privacy.html', 'legal.html', 'developers.html']
+COUNSEL_PAGES = ['terms.html', 'privacy.html']  # counsel's own text: it may use words (such as "introductory") that marketing pages must not
+
+
 def checked_pages():
-    return L.config()['checkedPages']
+    """EVERY HTML page in the repository, found by walking it (no hand-kept list), so a new page cannot slip past banned, footer, links, scripts or labels."""
+    out = []
+    for d, dirs, files in os.walk(L.ROOT):
+        dirs[:] = sorted(x for x in dirs if x not in ('.git', '.github', 'node_modules', '__pycache__'))
+        for f in sorted(files):
+            if f.endswith('.html'):
+                out.append(os.path.relpath(os.path.join(d, f), L.ROOT))
+    return sorted(out)
+
+
+class _Visible(HTMLParser):
+    """The text a visitor (or a search engine) reads: text nodes outside <style> and <script>, the <title>, and the content of <meta name="description">. Markup, attribute values such as
+    the viewport tag's "initial-scale=1", and CSS are not text."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.skip = 0
+        self.parts = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('style', 'script'):
+            self.skip += 1
+        if tag == 'meta':
+            a = dict(attrs)
+            if (a.get('name') or '').lower() == 'description' and a.get('content'):
+                self.parts.append(a['content'])
+        for k, v in attrs:
+            if k in ('alt', 'title') and v:
+                self.parts.append(v)
+
+    def handle_endtag(self, tag):
+        if tag in ('style', 'script') and self.skip:
+            self.skip -= 1
+
+    def handle_data(self, data):
+        if not self.skip:
+            self.parts.append(data)
+
+
+def visible_text(raw):
+    p = _Visible()
+    p.feed(raw)
+    p.close()
+    return L.norm(' '.join(p.parts))
 
 
 def check_generated():
@@ -77,6 +129,11 @@ def check_sources():
         for needle in (str(src['bytes']), src['sha256']):
             if needle not in manifest:
                 fail('legal-sources/MANIFEST.md does not list %s for %s' % (needle, name))
+    figs = L.load_json('legal-sources/developer-figures.json')
+    for key, src in figs['sources'].items():
+        for needle in (str(src['bytes']), src['sha256']):
+            if needle not in manifest:
+                fail('legal-sources/MANIFEST.md does not list %s for the developer source %s' % (needle, key))
 
 
 def check_edit_list():
@@ -181,13 +238,29 @@ def check_legal():
             fail('legal.html contains forbidden text: %s' % bad)
 
 
+INTRO_WORDING = [
+    (re.compile(r'\bintroductory\b', re.I), 'introductory-price wording (the Terms list no introductory price)'),
+    (re.compile(r'\bfirst[- ]year\b', re.I), 'first-year price wording'),
+    (re.compile(r'\bsteps?\s+up\b', re.I), 'a price step-up promise'),
+    (re.compile(r'Refund\s*(?:&|&amp;|and)\s*Cancellation\s+Policy', re.I), 'the old "Refund & Cancellation Policy" summary (cancellation and refunds are the Terms, Section 5)'),
+]
+
+
 def check_banned():
-    for page in checked_pages():
+    pages = checked_pages()
+    for core in CORE_PAGES:
+        if core not in pages:
+            fail('%s is missing from the repository (the page discovery found only %s)' % (core, pages))
+    for page in pages:
         raw = read(page)
-        visible = re.sub(r'<style.*?</style>', ' ', raw, flags=re.S)
-        for n in BANNED_NAMES:
-            if re.search(r'(?<![A-Za-z])' + re.escape(n) + r'(?![A-Za-z])', visible):
+        visible = visible_text(raw)
+        for n in BANNED_NAMES:  # case-insensitive, whole word, on what a visitor reads: "scale" in prose fails; the viewport tag's "initial-scale=1" is markup, not text
+            if re.search(r'(?<![A-Za-z])' + re.escape(n) + r'(?![A-Za-z])', visible, re.I):
                 fail('%s mentions the retired name %r' % (page, n))
+        if page not in COUNSEL_PAGES:
+            for pat, why in INTRO_WORDING:
+                if pat.search(visible):
+                    fail('%s contains %s' % (page, why))
         for pat, why in BANNED_PATTERNS:
             if pat.search(raw):
                 fail('%s contains %s' % (page, why))
@@ -239,8 +312,160 @@ def check_scripts():
             fail('%s loads a script or an external resource' % page)
 
 
+# ---------------------------------------------------------------- commercial pages: every figure traced to its source, availability labels, nothing to buy
+
+import developers_page  # noqa: E402
+
+COMMERCIAL_PAGES = ['index.html', 'developers.html']
+VOID_TAGS = {'br', 'hr', 'img', 'input', 'meta', 'link', 'area', 'base', 'col', 'embed', 'source', 'track', 'wbr'}
+CONSUMER_LABEL = 'Available at launch'
+
+
+class _Tagged(HTMLParser):
+    """Collects every element that carries data-src (its tag, source and text) and every data-label element (its kind and text)."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.items = []
+        self.labels = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in VOID_TAGS:
+            return
+        a = dict(attrs)
+        recs = []
+        if 'data-src' in a:
+            r = {'tag': tag, 'src': a['data-src'], 'text': []}
+            self.items.append(r)
+            recs.append(r)
+        if 'data-label' in a:
+            r = {'kind': a['data-label'], 'text': []}
+            self.labels.append(r)
+            recs.append(r)
+        self.stack.append((tag, recs))
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][0] == tag:
+                del self.stack[i:]
+                return
+
+    def handle_data(self, data):
+        for _, recs in self.stack:
+            for r in recs:
+                r['text'].append(data)
+
+
+def tagged(page):
+    p = _Tagged()
+    p.feed(read(page))
+    p.close()
+    for r in p.items + p.labels:
+        r['text'] = L.norm(''.join(r['text']))
+    return p.items, p.labels
+
+
+def terms_clause(cid):
+    lines = read('legal-sources/terms.txt').split('\n')
+    if cid == 'ScheduleA':
+        i = next((k for k, l in enumerate(lines) if l.startswith('Schedule A.')), None)
+        j = next((k for k, l in enumerate(lines) if l.startswith('Schedule B.')), None)
+        return L.norm(' '.join(lines[i:j])) if i is not None and j is not None else None
+    for l in lines:
+        if l.startswith(cid + ' '):
+            return L.norm(l)
+    return None
+
+
+def dev_value(fig, ref):
+    parts = ref.split('.')
+    if ref == 'sourcesLine':
+        return fig.get('sourcesLine')
+    if parts[0] == 'billing' and len(parts) == 2:
+        return fig['billing'].get(parts[1])
+    plan = next((p for p in fig['plans'] if p['key'] == parts[0]), None)
+    return plan.get(parts[1]) if plan and len(parts) == 2 else None
+
+
+UNSOURCED = re.compile(r'(?:US)?\$\s?\d[\d,.]*|\b\d[\d,]*\s+(?:requests|answers|seats|boats|days|months|countries|users)\b', re.I)
+
+
+def check_figures():
+    fig = L.load_json('legal-sources/developer-figures.json')
+    legal_sentence = developers_page.developer_documents_sentence(L.config())
+    for page in COMMERCIAL_PAGES:
+        items, _ = tagged(page)
+        if not items:
+            fail('%s has no data-src element at all: its figures are not traced to a source' % page)
+        for it in items:
+            kind, _, ref = it['src'].partition(':')
+            text = it['text']
+            if kind == 'terms':
+                cl = terms_clause(ref)
+                if cl is None:
+                    fail('%s: data-src %r names a clause that does not exist in the Terms' % (page, it['src']))
+                elif text.lower() not in cl.lower():
+                    fail('%s: %r is not in Terms clause %s (data-src="%s")' % (page, text[:90], ref, it['src']))
+            elif kind == 'dev':
+                want = dev_value(fig, ref)
+                if want is None:
+                    fail('%s: data-src %r names a figure that is not in legal-sources/developer-figures.json' % (page, it['src']))
+                elif text != L.norm(want):
+                    fail('%s: %r differs from developer-figures.json %s = %r' % (page, text[:90], ref, want))
+            elif kind == 'legal':
+                if ref != 'developer-documents' or text != L.norm(legal_sentence):
+                    fail('%s: the quoted legal-page sentence differs from legal-sources/legal.md (%r)' % (page, text[:90]))
+            else:
+                fail('%s: unknown data-src kind in %r' % (page, it['src']))
+        # a figure with no source: strip every sourced element, then look for money and numbers with units in the pricing, refund and hero regions (index.html) or the whole page (developers.html)
+        raw = read(page)
+        if page == 'index.html':
+            regions = [m.group(0) for m in re.finditer(r'<section id="pricing".*?</section>', raw, re.S)] + re.findall(r'<div class="badge">.*?</div>', raw, re.S)
+            if len(regions) != 2:
+                fail('index.html: expected the pricing section and the hero badge, found %d regions' % len(regions))
+        else:
+            regions = [re.search(r'<div class="wrap legal">.*?</div>', raw, re.S).group(0)]
+        for reg in regions:
+            for _ in range(3):
+                reg = re.sub(r'<(\w+)[^>]*\sdata-src="[^"]*"[^>]*>.*?</\1>', ' ', reg, flags=re.S)
+            visible = L.norm(re.sub(r'<[^>]+>', ' ', reg))
+            for m in UNSOURCED.finditer(visible):
+                fail('%s: the figure %r has no data-src (every figure must come from one cited source): ...%s...' % (page, m.group(0), visible[max(0, m.start() - 40):m.end() + 30]))
+
+
+def check_labels():
+    fig = L.load_json('legal-sources/developer-figures.json')
+    items, labels = tagged('index.html')
+    consumer = [x for x in labels if x['kind'] == 'consumer']
+    raw = read('index.html')
+    cards = len(re.findall(r'<div class="plan[ "]', raw)) + len(re.findall(r'<div class="onetime"', raw))
+    if len(consumer) != cards or cards != 4:
+        fail('index.html: %d consumer plan blocks and %d availability labels (want 4 and 4: Free, Skipper, Fleet, Founding Crew)' % (cards, len(consumer)))
+    for x in consumer:
+        if x['text'] != CONSUMER_LABEL:
+            fail('index.html: a consumer plan label reads %r, not %r' % (x['text'], CONSUMER_LABEL))
+    _, dlabels = tagged('developers.html')
+    dev = [x for x in dlabels if x['kind'] == 'developer']
+    if len(dev) != len(fig['plans']):
+        fail('developers.html: %d developer availability labels for %d plans' % (len(dev), len(fig['plans'])))
+    for x in dev:
+        if x['text'] != fig['availability']:
+            fail('developers.html: a developer plan label reads %r, not %r' % (x['text'], fig['availability']))
+    # nothing to buy: no button, form or input anywhere, no buy or checkout link on the commercial pages
+    for page in checked_pages():
+        r = read(page)
+        if re.search(r'<(button|form|input|select|textarea)\b', r, re.I):
+            fail('%s has a button, form or input (nothing can be bought or submitted on this site)' % page)
+    for page in COMMERCIAL_PAGES:
+        for m in re.finditer(r'<a\b[^>]*href="([^"]*)"[^>]*>(.*?)</a>', read(page), re.S | re.I):
+            href, label = m.group(1), L.norm(re.sub(r'<[^>]+>', ' ', m.group(2)))
+            if re.search(r'\b(buy|purchase|checkout|subscribe|order now|add to cart|sign up|start free trial|get started)\b', label, re.I) or re.search(r'stripe|checkout|/buy|/pay\b|/cart', href, re.I):
+                fail('%s has a link that offers something for sale: %r -> %s' % (page, label[:60], href))
+
+
 def main():
-    for name, fn in (('generated', check_generated), ('sources', check_sources), ('edits', check_edit_list), ('text', check_text), ('dates', check_dates), ('legal', check_legal), ('banned', check_banned),
+    for name, fn in (('generated', check_generated), ('sources', check_sources), ('edits', check_edit_list), ('text', check_text), ('dates', check_dates), ('legal', check_legal), ('figures', check_figures), ('labels', check_labels), ('banned', check_banned),
                      ('footer', check_footer), ('links', check_links), ('scripts', check_scripts)):
         group(name, fn)
     print('\n%s' % ('ALL CHECKS PASSED' if not failures else '%d CHECK FAILURE(S)' % len(failures)))

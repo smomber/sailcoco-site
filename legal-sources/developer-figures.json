@@ -1,0 +1,33 @@
+{
+ "note": "The developer plan figures shown on developers.html. The developer documents themselves are not published, so they are not in this repository: each figure below was read from the clause named beside it, and the size and SHA-256 of each document are recorded so anyone holding the file can re-check. tools/verify_developer_figures.py does that check against the .docx files (run locally; CI does not have them). tools/check_site.py checks that the page shows exactly these figures.",
+ "sources": {
+  "developerTerms": {
+   "title": "Developer Terms (order form), final version",
+   "bytes": 50633,
+   "sha256": "16647ad8c11f104f3d9214acaa7bfc8b676e58bb1b38b3c2ab7d55be2f42cfe7"
+  },
+  "apiPolicy": {
+   "title": "API Usage and Attribution Policy, final version",
+   "bytes": 22980,
+   "sha256": "6092f288f074858aa6247fba1003580fabaf3ed6cad756ec2288cb220b754e6c"
+  }
+ },
+ "availability": "Available at general availability (target December 2026)",
+ "sourcesLine": "Sources: Developer Terms B3, B4.2, B4.7, B6 and B7.2; API Usage and Attribution Policy 7.1.",
+ "plans": [
+  {"key": "free", "name": "Free", "monthlyFee": "US$0", "dailyRequests": "100", "monthlyAnswers": "50", "note": null,
+   "clauses": "Developer Terms B3 and B4.2; API Usage and Attribution Policy 7.1"},
+  {"key": "platform199", "name": "Platform 199", "monthlyFee": "US$199", "dailyRequests": "100,000", "monthlyAnswers": "1,500", "note": null,
+   "clauses": "Developer Terms B3 and B4.2; API Usage and Attribution Policy 7.1"},
+  {"key": "platform499", "name": "Platform 499", "monthlyFee": "US$499", "dailyRequests": "500,000", "monthlyAnswers": "4,000", "note": "Display Licence",
+   "clauses": "Developer Terms B3, B4.2 and B7.2; API Usage and Attribution Policy 7.1"},
+  {"key": "licence", "name": "Licence", "monthlyFee": "Custom", "dailyRequests": "As agreed", "monthlyAnswers": "As agreed", "note": null,
+   "clauses": "Developer Terms B3 and B6; API Usage and Attribution Policy 7.1"}
+ ],
+ "billing": {
+  "monthlyOnly": "Platform plans are billed monthly only (no yearly fee is offered).",
+  "monthlyOnlyClause": "Developer Terms B3",
+  "usageBased": "On a Platform plan, usage-based billing is optional and runs under a monthly spending cap that you set.",
+  "usageBasedClause": "API Usage and Attribution Policy 7.1; Developer Terms B4.7"
+ }
+}

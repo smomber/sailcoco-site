@@ -15,6 +15,15 @@ directory, and `python3 tools/check_site.py` (run by CI on every pull request an
 |---|---|---|---|
 | `legal.html` | `legal-sources/legal.md`, a byte-for-byte copy of the approved text (filed 2026-10-09), rendered word for word by `tools/legal_md.py`; the only change is the publication date filled into `Last updated:` | 2854 | `13dc3d45b13f83f76f22d1b8472e0c5dcdf3f75440cfaa15dd52262cb1fb72d6` |
 
+## Developer figures (the documents are not published)
+
+The developer plan figures on `developers.html` come from `developer-figures.json`. The developer documents themselves are not published and are not in this repository; their size and SHA-256 are recorded here so anyone holding the files can re-check, and `python3 tools/verify_developer_figures.py <developer-terms.docx> <api-policy.docx>` re-reads every figure from the clause it cites (run locally; CI does not have the files).
+
+| Document | Bytes | SHA-256 |
+|---|---|---|
+| Developer Terms (order form), final version | 50633 | `16647ad8c11f104f3d9214acaa7bfc8b676e58bb1b38b3c2ab7d55be2f42cfe7` |
+| API Usage and Attribution Policy, final version | 22980 | `6092f288f074858aa6247fba1003580fabaf3ed6cad756ec2288cb220b754e6c` |
+
 ## How the sources were made
 
 `tools/extract_docx.py` reads the `.docx` body (`word/document.xml`) and writes `<name>.json` (paragraphs and bulleted lists, with bold and italic runs) and `<name>.txt` (one line per paragraph or
