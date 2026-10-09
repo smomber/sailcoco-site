@@ -33,6 +33,10 @@ def config():
     return load_json('site-config.json')
 
 
+def date_text(cfg):
+    return '%s, %s' % (cfg['publicationDate']['monthDay'], cfg['publicationDate']['year'])
+
+
 def block_text(block):
     """The text of one source block: a paragraph's runs joined, or (for a list) one string per item."""
     if block['type'] == 'p':
@@ -134,6 +138,10 @@ CSS = (
     "h2{color:var(--ocean);font-size:1.15rem;margin-top:28px}\n"
     ".meta{color:var(--cocoa-l);font-style:italic;margin-bottom:18px}\n"
     ".legal p{font-size:.98rem}.legal strong{color:var(--cocoa)}.legal ul{padding-left:1.4rem}.legal li{margin:.25rem 0}\n"
+    ".legal a{color:var(--ocean)}\n"
+    ".legal table{border-collapse:collapse;width:100%;margin:.4rem 0 1rem;font-size:.98rem}\n"
+    ".legal th,.legal td{text-align:left;vertical-align:top;padding:.4rem 1.4rem .4rem 0;border-bottom:1px solid rgba(74,46,29,.18)}\n"
+    ".legal th{color:var(--cocoa);font-size:.9rem}\n"
     "footer{border-top:2px solid var(--brass);margin-top:48px;padding:18px 22px;text-align:center;font-size:.85rem;color:var(--cocoa-l)}\n"
     "footer a{color:var(--ocean)}"
 )
