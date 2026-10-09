@@ -152,27 +152,40 @@ CSS = (
 TRADEMARK_LINE = 'SailCoCo and the SailCoCo flag logo are trademarks of SailCoCo LLC.'
 
 
-def footer_html(with_legal):
+# The address of each page as a root-relative clean URL (what GitHub Pages and the site's own server both serve); used for a page that can be shown at ANY address, such as 404.html, whose
+# relative links would otherwise resolve against whatever path was asked for.
+ROOT_LINKS = {'index.html': '/', 'index.html#pricing': '/#pricing', 'developers.html': '/developers', 'terms.html': '/terms', 'privacy.html': '/privacy', 'legal.html': '/legal'}
+
+
+def _links(html, root):
+    if not root:
+        return html
+    for rel, clean in ROOT_LINKS.items():
+        html = html.replace('href="%s"' % rel, 'href="%s"' % clean)
+    return html
+
+
+def footer_html(with_legal, root=False):
     links = ['<a href="terms.html">Terms of Service</a>', '<a href="privacy.html">Privacy Policy</a>']
     if with_legal:
         links.append('<a href="legal.html">Legal information</a>')
     links.append('<a href="terms.html">Cancellation and refunds (Terms of Service, Section 5)</a>')
-    return ('<footer>SailCoCo LLC · Redwood City, California · <a href="mailto:support@sailcoco.com">support@sailcoco.com</a><br>\n'
-            + ' · '.join(links) + '<br>\n' + TRADEMARK_LINE + '</footer>')
+    return _links('<footer>SailCoCo LLC · Redwood City, California · <a href="mailto:support@sailcoco.com">support@sailcoco.com</a><br>\n'
+                  + ' · '.join(links) + '<br>\n' + TRADEMARK_LINE + '</footer>', root)
 
 
-def nav_html(with_legal):
+def nav_html(with_legal, root=False):
     items = ['<a href="index.html">Home</a>', '<a href="index.html#pricing">Pricing</a>', '<a href="developers.html">Developers</a>', '<a href="terms.html">Terms</a>', '<a href="privacy.html">Privacy</a>']
     if with_legal:
         items.append('<a href="legal.html">Legal</a>')
-    return '<nav>' + ' '.join(items) + '</nav>'
+    return _links('<nav>' + ' '.join(items) + '</nav>', root)
 
 
-def page_html(title, content_html, with_legal):
-    return ('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n'
+def page_html(title, content_html, with_legal, head_extra='', root=False):
+    return ('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">%s\n'
             '<title>%s</title><style>\n%s\n</style></head><body>\n'
-            '<header class="site"><div class="wrap"><a class="brand" href="index.html">Sail<span>CoCo</span></a>\n%s</div></header>\n'
-            '<div class="wrap legal">%s\n</div>\n%s\n</body></html>\n') % (esc(title), CSS, nav_html(with_legal), content_html, footer_html(with_legal))
+            '<header class="site"><div class="wrap"><a class="brand" href="%s">Sail<span>CoCo</span></a>\n%s</div></header>\n'
+            '<div class="wrap legal">%s\n</div>\n%s\n</body></html>\n') % (head_extra, esc(title), CSS, '/' if root else 'index.html', nav_html(with_legal, root), content_html, footer_html(with_legal, root))
 
 
 # ---------------------------------------------------------------- reading a page back (for the checks): the text of the content area, block by block
