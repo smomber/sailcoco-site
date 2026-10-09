@@ -125,7 +125,7 @@ def blocks_html(doc):
 # ---------------------------------------------------------------- page template (the existing pages' look: inline CSS, header, content, footer)
 
 CSS = (
-    ":root{--cream:#F7EBD7;--foam:#FDF6EA;--cocoa:#4A2E1D;--cocoa-l:#6B4A33;--ocean:#1C8095;--brass:#B98A2F;--gold:#D4AF37}\n"
+    ":root{--cream:#F7EBD7;--foam:#FDF6EA;--cocoa:#4A2E1D;--cocoa-l:#6B4A33;--ocean:#1C8095;--brass:#B98A2F;--gold:#D4AF37;--green:#4A7C43}\n"
     "*{box-sizing:border-box}body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--cream);color:var(--cocoa);line-height:1.65}\n"
     ".wrap{max-width:820px;margin:0 auto;padding:28px 22px 60px}\n"
     "header.site{background:var(--cocoa);color:var(--cream);padding:14px 0}\n"
@@ -142,6 +142,9 @@ CSS = (
     ".legal table{border-collapse:collapse;width:100%;margin:.4rem 0 1rem;font-size:.98rem}\n"
     ".legal th,.legal td{text-align:left;vertical-align:top;padding:.4rem 1.4rem .4rem 0;border-bottom:1px solid rgba(74,46,29,.18)}\n"
     ".legal th{color:var(--cocoa);font-size:.9rem}\n"
+    ".avail{display:inline-block;background:#EFF7F4;border:1px solid var(--green);color:var(--green);border-radius:999px;padding:2px 12px;font-size:.82rem;font-weight:bold}\n"
+    ".plans-wrap{overflow-x:auto;margin:.4rem 0 1rem}.plans-wrap table{margin:0}.legal table.plans td,.legal table.plans th{padding-right:1rem}\n"
+    "@media(max-width:640px){.plans-wrap{overflow:visible}.legal table.plans,.legal table.plans tbody,.legal table.plans tr,.legal table.plans td{display:block;width:100%}.legal table.plans thead{display:none}.legal table.plans tr{padding:.7rem 0;border-bottom:1px solid rgba(74,46,29,.18)}.legal table.plans td{border:0;padding:.15rem 0}.legal table.plans td[data-th]:before{content:attr(data-th) \": \";font-weight:bold;color:var(--cocoa-l)}}\n"
     "footer{border-top:2px solid var(--brass);margin-top:48px;padding:18px 22px;text-align:center;font-size:.85rem;color:var(--cocoa-l)}\n"
     "footer a{color:var(--ocean)}"
 )
@@ -153,16 +156,16 @@ def footer_html(with_legal):
     links = ['<a href="terms.html">Terms of Service</a>', '<a href="privacy.html">Privacy Policy</a>']
     if with_legal:
         links.append('<a href="legal.html">Legal information</a>')
-    links.append('<a href="index.html#refunds">Refund &amp; Cancellation Policy</a>')
+    links.append('<a href="terms.html">Cancellation and refunds (Terms of Service, Section 5)</a>')
     return ('<footer>SailCoCo LLC · Redwood City, California · <a href="mailto:support@sailcoco.com">support@sailcoco.com</a><br>\n'
             + ' · '.join(links) + '<br>\n' + TRADEMARK_LINE + '</footer>')
 
 
 def nav_html(with_legal):
-    items = ['<a href="index.html">Home</a>', '<a href="index.html#pricing">Pricing</a>', '<a href="terms.html">Terms</a>', '<a href="privacy.html">Privacy</a>']
+    items = ['<a href="index.html">Home</a>', '<a href="index.html#pricing">Pricing</a>', '<a href="developers.html">Developers</a>', '<a href="terms.html">Terms</a>', '<a href="privacy.html">Privacy</a>']
     if with_legal:
         items.append('<a href="legal.html">Legal</a>')
-    return '<nav>' + ''.join(items) + '</nav>'
+    return '<nav>' + ' '.join(items) + '</nav>'
 
 
 def page_html(title, content_html, with_legal):
