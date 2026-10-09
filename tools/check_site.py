@@ -8,9 +8,12 @@ Groups (the site publication rules of 9 Oct 2026):
   text        each page's text equals its source text, block by block, after whitespace normalisation, with ONLY the documented edits (legal-sources/edits.json)
   dates       no blank date line is left; the pages carry the publication date from site-config.json
   legal       legal.html is the approved text word for word (block by block, and again as one blob by an independent method), carries every required contact detail, no placeholder
-  figures     index.html and developers.html: every element carrying data-src is checked against its source (a Terms clause, the developer figures table, or the legal page text), and any money or number-with-unit
-              in the pricing, refund and hero regions or on the developers page that has no data-src fails
+  figures     index.html and developers.html: every element carrying data-src is checked against its source (a Terms clause, the developer figures table, the legal page text, or the dated coverage counts in
+              legal-sources/coverage-figures.json), and any money or number-with-unit in the pricing, refund and hero regions or on the developers page that has no data-src fails; on the home page a count of
+              facts or countries, or a percentage, that has no data-src fails
   labels      every consumer plan says "Available at launch" and every developer plan the general-availability wording; no button, form or input on any page; no buy or checkout link
+  claims      EVERY page in the repository except counsel's Terms and Privacy Policy: no "#1" or "number one"; no "compliant"; no "verified" unless the same block carries the approved qualifier ("Sources checked by
+              SailCoCo on [date]. Not a government approval."); no "real-time", "continuously monitored", "always up to date" or "guarantee"; no "we answer ... within" service promise (it must say "we aim to")
   banned      EVERY page in the repository (discovered, not listed): no retired plan name (whole word, any case, in the text a visitor reads), no freshness guarantee or credit, no registered-trademark symbol;
               and, on every page except counsel's Terms and Privacy Policy, no introductory-price, first-year or step-up wording and no "Refund & Cancellation Policy" summary
   footer      every checked page's footer links to Terms, Privacy (and Legal once legal.html exists) and carries the trademark line exactly
@@ -388,16 +391,33 @@ def dev_value(fig, ref):
     return plan.get(parts[1]) if plan and len(parts) == 2 else None
 
 
+COV_REFS = ['publishedFacts', 'publishedFactsAsOf', 'countries', 'countriesAsOf']
+
+
+def cov_value(cov, ref):
+    key, as_of = (ref[:-len('AsOf')], True) if ref.endswith('AsOf') else (ref, False)
+    f = cov['figures'].get(key)
+    if f is None or ref not in COV_REFS:
+        return None
+    return f['asOfText'] if as_of else f['text']
+
+
 UNSOURCED = re.compile(r'(?:US)?\$\s?\d[\d,.]*|\b\d[\d,]*\s+(?:requests|answers|seats|boats|days|months|countries|users)\b', re.I)
 
 
 def check_figures():
     fig = L.load_json('legal-sources/developer-figures.json')
+    cov = L.load_json('legal-sources/coverage-figures.json')
     legal_sentence = developers_page.developer_documents_sentence(L.config())
     for page in COMMERCIAL_PAGES:
         items, _ = tagged(page)
         if not items:
             fail('%s has no data-src element at all: its figures are not traced to a source' % page)
+        got = sorted(i['src'].partition(':')[2] for i in items if i['src'].startswith('cov:'))
+        if page == 'index.html' and got != sorted(COV_REFS):
+            fail('index.html: the coverage counts must each appear exactly once as data-src="cov:..." (want %s, found %s)' % (sorted(COV_REFS), got))
+        if page != 'index.html' and got:
+            fail('%s carries coverage counts (%s): only the home page states them' % (page, got))
         for it in items:
             kind, _, ref = it['src'].partition(':')
             text = it['text']
@@ -413,6 +433,12 @@ def check_figures():
                     fail('%s: data-src %r names a figure that is not in legal-sources/developer-figures.json' % (page, it['src']))
                 elif text != L.norm(want):
                     fail('%s: %r differs from developer-figures.json %s = %r' % (page, text[:90], ref, want))
+            elif kind == 'cov':
+                want = cov_value(cov, ref)
+                if want is None:
+                    fail('%s: data-src %r names a coverage figure that is not in legal-sources/coverage-figures.json' % (page, it['src']))
+                elif text != L.norm(want):
+                    fail('%s: %r differs from coverage-figures.json %s = %r' % (page, text[:90], ref, want))
             elif kind == 'legal':
                 if ref != 'developer-documents' or text != L.norm(legal_sentence):
                     fail('%s: the quoted legal-page sentence differs from legal-sources/legal.md (%r)' % (page, text[:90]))
@@ -432,6 +458,26 @@ def check_figures():
             visible = L.norm(re.sub(r'<[^>]+>', ' ', reg))
             for m in UNSOURCED.finditer(visible):
                 fail('%s: the figure %r has no data-src (every figure must come from one cited source): ...%s...' % (page, m.group(0), visible[max(0, m.start() - 40):m.end() + 30]))
+        if page == 'index.html':
+            check_coverage_text(raw, cov)
+
+
+COVERAGE_UNSOURCED = re.compile(r'\b\d[\d,.]*\s+(?:[A-Za-z-]+\s+)?(?:facts?|countries|territories|jurisdictions)\b|\b\d+(?:\.\d+)?\s?%', re.I)
+
+
+def check_coverage_text(raw, cov):
+    """The home page's coverage counts: the exact labels, each beside its own as-of date, and no other count of facts or countries, and no percentage, anywhere on the page without a source."""
+    pf, ct = cov['figures']['publishedFacts'], cov['figures']['countries']
+    visible = visible_text(raw)
+    for want in ('%s %s as of %s' % (pf['text'], pf['label'], pf['asOfText']), '%s %s as of the %s' % (ct['text'], ct['label'], ct['asOfText'])):
+        if want not in visible:
+            fail('index.html: the coverage sentence %r is not on the page (every count carries its label and its own as-of date)' % want)
+    rest = raw
+    for _ in range(3):
+        rest = re.sub(r'<(\w+)[^>]*\sdata-src="[^"]*"[^>]*>.*?</\1>', ' ', rest, flags=re.S)
+    text = visible_text(rest)
+    for m in COVERAGE_UNSOURCED.finditer(text):
+        fail('index.html: the count %r has no data-src (the only coverage numbers allowed are the two in coverage-figures.json): ...%s...' % (m.group(0), text[max(0, m.start() - 40):m.end() + 30]))
 
 
 def check_labels():
@@ -464,8 +510,85 @@ def check_labels():
                 fail('%s has a link that offers something for sale: %r -> %s' % (page, label[:60], href))
 
 
+# ---------------------------------------------------------------- claims: marketing copy may not promise more than the product can show (site publication rules of 9 Oct 2026)
+
+CLAIM_PATTERNS = [
+    (re.compile(r'(?<![\w&])#\s?1(?![\w;])|\bnumber[ -]one\b|\bno\.\s?1\b', re.I), '"#1" or "number one" (an unsubstantiated superlative)'),
+    (re.compile(r'\bcompliant\b', re.I), '"compliant" (no claim may say that a boat or a person is compliant)'),
+    (re.compile(r'\breal[- ]?time\b', re.I), '"real-time" (a freshness claim)'),
+    (re.compile(r'\bcontinuous(?:ly)?\s+monitor(?:ed|ing)?\b', re.I), '"continuously monitored" (a freshness claim)'),
+    (re.compile(r'\balways\s+up[- ]to[- ]date\b', re.I), '"always up to date" (a freshness claim)'),
+    (re.compile(r'\bguarantee[sd]?\b', re.I), '"guarantee" (no outcome is promised)'),
+    (re.compile(r'\bwe\s+(?:answer|reply|respond)\b[^.]{0,60}\bwithin\b', re.I), 'a service promise ("we answer ... within"): say "we aim to"'),
+]
+VERIFIED = re.compile(r'\bverified\b', re.I)
+VERIFIED_QUALIFIER = ('Sources checked by SailCoCo on', 'Not a government approval.')
+BLOCK_TAGS = {'p', 'div', 'li', 'ul', 'ol', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'header', 'footer', 'nav', 'table', 'tr', 'td', 'th', 'blockquote', 'br', 'hr', 'title', 'body', 'main', 'article', 'aside'}
+
+
+class _Blocks(HTMLParser):
+    """The visible text of a page cut into blocks at block-level tags (so the qualifier must sit in the same paragraph, list item or heading as the word it qualifies). The title and the meta
+    description are blocks of their own, as are alt and title attributes."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.skip = 0
+        self.cur = []
+        self.blocks = []
+
+    def flush(self):
+        t = L.norm(' '.join(self.cur))
+        if t:
+            self.blocks.append(t)
+        self.cur = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('style', 'script'):
+            self.skip += 1
+        if tag in BLOCK_TAGS:
+            self.flush()
+        a = dict(attrs)
+        if tag == 'meta' and (a.get('name') or '').lower() == 'description' and a.get('content'):
+            self.blocks.append(L.norm(a['content']))
+        for k in ('alt', 'title'):
+            if a.get(k):
+                self.blocks.append(L.norm(a[k]))
+
+    def handle_endtag(self, tag):
+        if tag in ('style', 'script') and self.skip:
+            self.skip -= 1
+        if tag in BLOCK_TAGS:
+            self.flush()
+
+    def handle_data(self, data):
+        if not self.skip:
+            self.cur.append(data)
+
+
+def visible_blocks(raw):
+    p = _Blocks()
+    p.feed(raw)
+    p.close()
+    p.flush()
+    return p.blocks
+
+
+def check_claims():
+    for page in checked_pages():
+        if page in COUNSEL_PAGES:  # counsel's own text is exempt
+            continue
+        for block in visible_blocks(read(page)):
+            for pat, why in CLAIM_PATTERNS:
+                m = pat.search(block)
+                if m:
+                    fail('%s makes a claim the site does not make: %s: ...%s...' % (page, why, block[max(0, m.start() - 50):m.end() + 40]))
+            m = VERIFIED.search(block)
+            if m and not all(q in block for q in VERIFIED_QUALIFIER):
+                fail('%s uses "verified" without the approved qualifier ("Sources checked by SailCoCo on [date]. Not a government approval.") in the same block; say "sourced and dated": ...%s...' % (page, block[max(0, m.start() - 50):m.end() + 40]))
+
+
 def main():
-    for name, fn in (('generated', check_generated), ('sources', check_sources), ('edits', check_edit_list), ('text', check_text), ('dates', check_dates), ('legal', check_legal), ('figures', check_figures), ('labels', check_labels), ('banned', check_banned),
+    for name, fn in (('generated', check_generated), ('sources', check_sources), ('edits', check_edit_list), ('text', check_text), ('dates', check_dates), ('legal', check_legal), ('figures', check_figures), ('labels', check_labels), ('banned', check_banned), ('claims', check_claims),
                      ('footer', check_footer), ('links', check_links), ('scripts', check_scripts)):
         group(name, fn)
     print('\n%s' % ('ALL CHECKS PASSED' if not failures else '%d CHECK FAILURE(S)' % len(failures)))
