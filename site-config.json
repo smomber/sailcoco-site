@@ -1,0 +1,12 @@
+{
+  "publicationDate": {
+    "monthDay": "October 9",
+    "year": 2026
+  },
+  "hasLegalPage": false,
+  "note": "publicationDate is the date the legal pages are PUBLISHED, i.e. the date the pull request is merged (site publication rules of 9 Oct 2026). It is filled into the blank 'Effective Date' and 'Last Updated' lines of the Terms of Service and the Privacy Policy and nowhere else. If the merge happens on another day, change it here and rebuild (python3 tools/build_legal.py); CI fails if a page and this file disagree. hasLegalPage switches the Legal link on in the header and footer; it is true once legal.html is on main.",
+  "checkedPages": [
+    "terms.html",
+    "privacy.html"
+  ]
+}

@@ -1,0 +1,22 @@
+name: Site checks
+
+# Legal text on this site is copied from counsel's documents, never drafted or edited here (site publication rules of 9 Oct 2026).
+# These checks fail a pull request, and a push to main, if a page differs from legal-sources/ by anything but the documented edits, if a retired
+# plan name or a freshness guarantee appears, if a footer lacks its links or the trademark line, if a link does not resolve, or if a page loads
+# a script or an external resource. See tools/check_site.py for the exact groups. Standard library only; nothing is installed.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  site-checks:
+    name: Site checks
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the site checks
+        run: python3 tools/check_site.py

@@ -1,0 +1,12 @@
+{
+  "terms": [
+    { "kind": "date", "find": "______________", "expect": 1,
+      "reason": "the blank 'Last Updated' line is filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)" }
+  ],
+  "privacy": [
+    { "kind": "date", "find": "______________", "expect": 2,
+      "reason": "the blank 'Effective Date' and 'Last Updated' lines are filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)" },
+    { "kind": "typo", "find": "Redwood City, California 94065. Users", "replace": "Redwood City, California 94065, USA. Users", "expect": 1,
+      "reason": "Privacy section 15: ', USA' added to the address to match every other document; the one typo fix that was authorised (site publication rules of 9 Oct 2026)" }
+  ]
+}
