@@ -281,7 +281,7 @@ def check_footer():
         if L.TRADEMARK_LINE not in f:
             fail('%s footer lacks the trademark line %r' % (page, L.TRADEMARK_LINE))
         for href in ['terms.html', 'privacy.html'] + (['legal.html'] if legal else []):
-            if 'href="%s"' % href not in f:
+            if 'href="%s"' % href not in f and 'href="/%s"' % href[:-len('.html')] not in f:  # the file name, or the root-relative clean URL a page shown at any address (404.html) must use
                 fail('%s footer does not link to %s' % (page, href))
 
 

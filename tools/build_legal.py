@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build terms.html, privacy.html, developers.html and (once hasLegalPage is true) legal.html from legal-sources/ (see tools/legal_lib.py for the rule: copied, never drafted).
+"""Build terms.html, privacy.html, developers.html, 404.html and (once hasLegalPage is true) legal.html from legal-sources/ (see tools/legal_lib.py for the rule: copied, never drafted).
 
 usage: python3 tools/build_legal.py            write the pages
        python3 tools/build_legal.py --check    exit 1 if a committed page differs from what the sources generate (CI runs this)
@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import legal_lib as L  # noqa: E402
 import legal_md  # noqa: E402
 import developers_page  # noqa: E402
+import not_found_page  # noqa: E402
 
 DOCS = {
     'terms': {'out': 'terms.html', 'title': 'Terms of Service — SailCoCo'},
@@ -31,6 +32,9 @@ def build():
         content, _ = legal_md.convert(md, L.date_text(cfg))
         pages['legal.html'] = L.page_html('Legal information \u2014 SailCoCo', content, True)
     pages['developers.html'] = L.page_html('Developer plans \u2014 SailCoCo', developers_page.content(L.load_json('legal-sources/developer-figures.json'), cfg), cfg['hasLegalPage'])
+    # 404.html: what a visitor sees for an address that matches no page (GitHub Pages and the site's own server both send it with a 404 status). Every link in it is root-relative (/terms,
+    # not terms.html) because the page is shown at WHATEVER address was asked for, and the site's Content-Security-Policy (base-uri 'none') rules out a <base> tag; noindex keeps it out of search results.
+    pages['404.html'] = L.page_html('Page not found \u2014 SailCoCo', not_found_page.content(), cfg['hasLegalPage'], head_extra='<meta name="robots" content="noindex">', root=True)
     return pages
 
 
