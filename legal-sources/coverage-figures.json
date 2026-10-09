@@ -1,0 +1,17 @@
+{
+  "about": "The plain counts the home page states about coverage, each with its own as-of date. tools/check_site.py fails if the home page differs from this file. Refresh by hand from a fresh reading of the named source on the day the page changes, never from memory. No other coverage number appears on the site.",
+  "figures": {
+    "publishedFacts": {
+      "text": "3,657",
+      "label": "published facts",
+      "reading": "SailCoCo's daily facts reading of the production service, 9 October 2026, 08:00 UTC",
+      "asOfText": "9 October 2026"
+    },
+    "countries": {
+      "text": "144",
+      "label": "countries with published facts",
+      "reading": "SailCoCo's weekly digest, week ending 5 October 2026",
+      "asOfText": "week ending 5 October 2026"
+    }
+  }
+}
