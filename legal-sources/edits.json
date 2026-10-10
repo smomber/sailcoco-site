@@ -12,6 +12,20 @@
       "replace": "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal.",
       "expect": 1,
       "reason": "owner-authorised factual update, 10 Oct 2026: the designated agent registration was completed on 9 Oct 2026 (U.S. Copyright Office registration DMCA-1082554)"
+    },
+    {
+      "kind": "owner",
+      "find": "Free tier: no charge.",
+      "replace": "Free tier: no charge. The Free tier includes one Free Compliance Card per person: a Compliance Card for one place, at no charge. The Company will not charge for a Free Compliance Card.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: the Free Compliance Card is free and is not closed for inactivity; Simon's decision 2026-10-10T1630Z"
+    },
+    {
+      "kind": "owner",
+      "find": "but only if the account is a Free tier account.",
+      "replace": "but only if the account is a Free tier account, and the Company does not close an account that holds a Free Compliance Card for inactivity.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: the Free Compliance Card is free and is not closed for inactivity; Simon's decision 2026-10-10T1630Z"
     }
   ],
   "privacy": [
