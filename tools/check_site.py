@@ -14,7 +14,8 @@ Groups (the site publication rules of 9 Oct 2026):
   labels      every consumer plan says "Available at launch" and every developer plan the general-availability wording; no button, form or input on any page; no buy or checkout link
   claims      EVERY page in the repository except counsel's Terms and Privacy Policy: no "#1" or "number one"; no "compliant"; no "verified" unless the same block carries the approved qualifier ("Sources checked by
               SailCoCo on [date]. Not a government approval."); no "real-time", "continuously monitored", "always up to date" or "guarantee"; no "we answer ... within" service promise (it must say "we aim to")
-  banned      EVERY page in the repository (discovered, not listed): no retired plan name (whole word, any case, in the text a visitor reads), no freshness guarantee or credit, no registered-trademark symbol;
+  banned      EVERY page in the repository (discovered, not listed): no retired plan name (whole word, any case, in the text a visitor reads), no freshness guarantee or credit, no registered-trademark symbol,
+              no "copilot" or "co-pilot" in any case anywhere in a page's markup (the retired tagline word, title and meta tags included; the tagline is "Your Sailing Compliance CoCaptain");
               and, on every page except counsel's Terms and Privacy Policy, no introductory-price, first-year or step-up wording and no "Refund & Cancellation Policy" summary
   footer      every checked page's footer links to Terms, Privacy (and Legal once legal.html exists) and carries the trademark line exactly
   links       every local link and anchor resolves
@@ -36,6 +37,7 @@ BANNED_PATTERNS = [
     (re.compile(r'[Ff]reshness\s+(guarantee|credit|SLA)', re.I), 'a freshness guarantee or credit (SLA 4.4: credits are for availability only)'),
     (re.compile(r'(guarantee[sd]?|promise[sd]?)\s+(that\s+)?(the\s+)?(data|facts?|information)\s+(is|are)\s+(always\s+)?(fresh|current|up[- ]to[- ]date)', re.I), 'a data freshness guarantee'),
     (re.compile(r'[®]|&reg;|&#174;|&#xae;', re.I), 'a registered-trademark symbol (TM only, never the registered mark)'),
+    (re.compile(r'co-?pilot', re.I), 'the retired tagline word "Copilot" (the tagline is "Your Sailing Compliance CoCaptain")'),
 ]
 
 # The ONLY edits to counsel's text that may exist (site publication rules of 9 Oct 2026): the publication date in the blank date lines, and this one typo fix. A new entry in
