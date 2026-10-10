@@ -35,7 +35,11 @@ def config():
 
 def pub_date(cfg, name=None):
     """The configured publication date for one document. The Privacy Policy has its own (counsel's round 3, 10 Oct 2026: its Effective Date and Last Updated are the date round 3 was merged); every other document uses publicationDate."""
-    return cfg['privacyPublicationDate'] if name == 'privacy' else cfg['publicationDate']
+    if name == 'privacy':
+        return cfg['privacyPublicationDate']
+    if name == 'terms' and 'termsPublicationDate' in cfg:
+        return cfg['termsPublicationDate']
+    return cfg['publicationDate']
 
 
 def date_text(cfg):
