@@ -71,10 +71,10 @@
     },
     {
       "kind": "owner-paragraph",
-      "find": "Founding Crew: $299 one-time for a lifetime Skipper Plan for one boat, limited to 150 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.",
-      "replace": "Launch prices. During the launch period, the Company offers each plan at a launch price 30% below its standard price: the Skipper Plan at $69 per year; the Fleet Plan at $62 per boat per year from 2 boats, $55 from 10 boats, $48 from 25 boats and $41 from 100 boats; and Founding Crew at $209. A Subscription bought at a launch price renews at that launch price for as long as it stays active without a break, including boats added to a Fleet Plan later, and for that Subscription the standard price in Section 5.2 means its launch price. The Company will announce the end of the launch period on the Service at least 30 days in advance, and the launch period ends no later than six months after paid plans are first offered for sale. Purchases after the launch period ends are at the standard prices.",
+      "find": "Founding Crew: $150 one-time for the Skipper Plan for one boat for three years from purchase, limited to 1,000 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.",
+      "replace": "Launch prices. During the launch period, the Company offers each plan at a launch price 30% below its standard price: the Skipper Plan at $69 per year; and the Fleet Plan at $62 per boat per year from 2 boats, $55 from 10 boats, $48 from 25 boats and $41 from 100 boats. A Subscription bought at a launch price renews at that launch price for as long as it stays active without a break, including boats added to a Fleet Plan later, and for that Subscription the standard price in Section 5.2 means its launch price. The Company will announce the end of the launch period on the Service at least 30 days in advance, and the launch period ends no later than six months after paid plans are first offered for sale. Purchases after the launch period ends are at the standard prices.",
       "expect": 1,
-      "reason": "owner-authorised edit, 10 Oct 2026: launch prices on every consumer plan, locked in (Schedule A: a new paragraph after the plan lines, the launch prices (30% below standard, locked in, with an end))"
+      "reason": "owner-authorised edit, 10 Oct 2026: launch prices on every consumer plan, locked in (Schedule A: a new paragraph after the plan lines, the launch prices (30% below standard, locked in, with an end)); 10 Oct 2026 later edit: the launch paragraph no longer names Founding Crew, which has one price (anchor and text changed)"
     },
     {
       "kind": "owner",
@@ -92,10 +92,31 @@
     },
     {
       "kind": "owner",
-      "find": "a share of the $299 price",
-      "replace": "a share of the price paid",
+      "find": "The Service offers one One-Time Purchase, Founding Crew, which does not auto-renew and for which the Company keeps no card on file. Founding Crew is a $299 one-time purchase for a lifetime Skipper Plan for one boat, limited to 150 seats and sold during a limited promotional window while seats remain. Founding Crew does not renew and ends on its own terms without a further charge.",
+      "replace": "The Service offers one One-Time Purchase, Founding Crew, which does not auto-renew and for which the Company keeps no card on file. Founding Crew is a $150 one-time purchase of the Skipper Plan for one boat for three years from the date of purchase, limited to 1,000 seats and sold during a limited promotional window while seats remain. Founding Crew does not renew and ends after three years without a further charge. The Company emails a reminder at least 30 days before it ends.",
       "expect": 1,
-      "reason": "owner-authorised edit, 10 Oct 2026: with the launch price, the Founding Crew discontinuation refund is a share of the price the buyer paid; Simon's decision"
+      "reason": "owner-authorised edit, 10 Oct 2026: Founding Crew is $150 one-time for three years of the Skipper Plan, no \"lifetime\" (section 5.7)"
+    },
+    {
+      "kind": "owner",
+      "find": "Meaning of Lifetime for Founding Crew.",
+      "replace": "Founding Crew Term.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: Founding Crew is $150 one-time for three years of the Skipper Plan, no \"lifetime\" (the heading of section 5.8)"
+    },
+    {
+      "kind": "owner",
+      "find": "\"Lifetime\" for a Founding Crew purchase means for as long as the Company offers the Skipper Plan, or any successor or renamed tier that provides substantially similar access, and not the lifetime of the purchaser. If the Company discontinues the Service, or discontinues the Skipper Plan without offering a successor tier, Founding Crew access ends at that time, and the Company will give at least 60 days advance notice by email before it does so. If the Company discontinues the Service within 24 months after a Founding Crew purchase, the Company refunds a share of the $299 price in proportion to the time left in that 24-month period, and no refund is owed for a discontinuation after 24 months. A Founding Crew purchase carries no cash value except for any refund stated here and is not transferable.",
+      "replace": "A Founding Crew purchase gives access to the Skipper Plan, or any successor or renamed tier that provides substantially similar access, for three years from the date of purchase. If the Company discontinues the Service, or discontinues the Skipper Plan without offering a successor tier, before those three years end, Founding Crew access ends at that time, the Company gives at least 60 days advance notice by email, and it refunds a share of the price paid in proportion to the time left in the three years. A Founding Crew purchase carries no cash value except for any refund stated here and is not transferable.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: Founding Crew is $150 one-time for three years of the Skipper Plan, no \"lifetime\" (section 5.8, which supersedes the earlier refund-formula edit)"
+    },
+    {
+      "kind": "owner",
+      "find": "Founding Crew: $299 one-time for a lifetime Skipper Plan for one boat, limited to 150 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.",
+      "replace": "Founding Crew: $150 one-time for the Skipper Plan for one boat for three years from purchase, limited to 1,000 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: Founding Crew is $150 one-time for three years of the Skipper Plan, no \"lifetime\" (the Schedule A Founding Crew line)"
     }
   ],
   "privacy": [
