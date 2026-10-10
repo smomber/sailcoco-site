@@ -1,12 +1,32 @@
 {
   "terms": [
-    { "kind": "date", "find": "______________", "expect": 1,
-      "reason": "the blank 'Last Updated' line is filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)" }
+    {
+      "kind": "date",
+      "find": "______________",
+      "expect": 1,
+      "reason": "the blank 'Last Updated' line is filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)"
+    },
+    {
+      "kind": "owner",
+      "find": "The Company will register the agent with the U.S. Copyright Office.",
+      "replace": "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal.",
+      "expect": 1,
+      "reason": "owner-authorised factual update, 10 Oct 2026: the designated agent registration was completed on 9 Oct 2026 (U.S. Copyright Office registration DMCA-1082554)"
+    }
   ],
   "privacy": [
-    { "kind": "date", "find": "______________", "expect": 2,
-      "reason": "the blank 'Effective Date' and 'Last Updated' lines are filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)" },
-    { "kind": "typo", "find": "Redwood City, California 94065. Users", "replace": "Redwood City, California 94065, USA. Users", "expect": 1,
-      "reason": "Privacy section 15: ', USA' added to the address to match every other document; the one typo fix that was authorised (site publication rules of 9 Oct 2026)" }
+    {
+      "kind": "date",
+      "find": "______________",
+      "expect": 2,
+      "reason": "the blank 'Effective Date' and 'Last Updated' lines are filled with the publication (merge) date from site-config.json (site publication rules of 9 Oct 2026)"
+    },
+    {
+      "kind": "typo",
+      "find": "Redwood City, California 94065. Users",
+      "replace": "Redwood City, California 94065, USA. Users",
+      "expect": 1,
+      "reason": "Privacy section 15: ', USA' added to the address to match every other document; the one typo fix that was authorised (site publication rules of 9 Oct 2026)"
+    }
   ]
 }

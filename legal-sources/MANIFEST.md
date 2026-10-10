@@ -37,8 +37,8 @@ git diff --stat legal-sources/
 
 ## The only edits allowed (`edits.json`)
 
-1. **The publication date** is filled into the blank date lines of the Terms (`Last Updated`) and the Privacy Policy (`Effective Date`, `Last Updated`). The date is `site-config.json`'s
-   `publicationDate`: the day the pull request is merged.
+1. **The publication dates** are filled into the blank date lines: the Terms' `Last Updated` (`site-config.json`'s `termsPublicationDate`) and the Privacy Policy's `Effective Date` and `Last Updated` (`privacyPublicationDate`): the day each change was merged. `publicationDate` dates the Legal page.
 2. **Privacy section 15**: `, USA` is added after `California 94065` in the postal address, to match every other document (the one typo fix that was authorised).
+3. **Terms B.2 Designated Agent** (`kind: owner`, the owner's factual update of 10 Oct 2026): `The Company will register the agent with the U.S. Copyright Office.` becomes `The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal.` The designated agent registration was completed on 9 October 2026; the edit records that fact and adds no obligation.
 
 Everything else, every heading, number, list and sentence, is the document's own text. Header and footer text inside the `.docx` (page numbers and the like) is not part of the body and is not published.

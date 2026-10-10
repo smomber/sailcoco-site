@@ -41,7 +41,7 @@ BANNED_PATTERNS = [
 # The ONLY edits to counsel's text that may exist (site publication rules of 9 Oct 2026): the publication date in the blank date lines, and this one typo fix. A new entry in
 # legal-sources/edits.json fails here until a human changes this list in the same pull request, where it is visible in review.
 AUTHORISED_EDITS = {
-    'terms': [('date', '______________', None)],
+    'terms': [('date', '______________', None), ('owner', 'The Company will register the agent with the U.S. Copyright Office.', "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal.")],
     'privacy': [('date', '______________', None), ('typo', 'Redwood City, California 94065. Users', 'Redwood City, California 94065, USA. Users')],
 }
 
@@ -174,7 +174,8 @@ def check_dates():
     if 'privacyPublicationDate' not in cfg:
         fail('site-config.json has no privacyPublicationDate (the Privacy Policy carries its own date since counsel\'s round 3)')
         return
-    stamp = '%s, %s' % (cfg['publicationDate']['monthDay'], cfg['publicationDate']['year'])
+    tdate = L.pub_date(cfg, 'terms')
+    stamp = '%s, %s' % (tdate['monthDay'], tdate['year'])
     pstamp = '%s, %s' % (cfg['privacyPublicationDate']['monthDay'], cfg['privacyPublicationDate']['year'])
     for out, needs in (('terms.html', ['Last Updated: ' + stamp]), ('privacy.html', ['Effective Date: ' + pstamp, 'Last Updated: ' + pstamp])):
         t = read(out)
