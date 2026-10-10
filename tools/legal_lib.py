@@ -3,7 +3,8 @@
 
 The rule these helpers enforce (site publication rules of 9 Oct 2026): legal text is COPIED, never drafted or edited. A page is generated from the structured source in
 legal-sources/*.json (extracted by tools/extract_docx.py from counsel's CLEAN .docx, with no model in the loop), and the only differences from the source that may ever exist are the ones
-listed in legal-sources/edits.json (the publication date filled into the blank date lines, and the one authorised typo fix). tools/check_site.py fails on any other difference.
+listed in legal-sources/edits.json (the publication date filled into the blank date lines, the one authorised typo fix, and the owner's own edits: exact find-and-replace inside one formatting run, or a new
+paragraph after a named block). tools/check_site.py fails on any other difference.
 """
 import html
 import json
@@ -80,6 +81,8 @@ def apply_edits(doc, edits, cfg, name=None):
     def fix_runs(runs):
         for run in runs:
             for i, e in enumerate(edits):
+                if e['kind'] == 'owner-paragraph':
+                    continue  # structural: it adds a block and is handled below, after the run-level edits
                 find = e['find']
                 if e['kind'] == 'date':
                     if find in run[0]:
@@ -100,6 +103,16 @@ def apply_edits(doc, edits, cfg, name=None):
         else:
             for item in b['items']:
                 fix_runs(item)
+    # `owner-paragraph` (an owner-authorised new paragraph; the only edit that adds a block): `replace` becomes a NEW plain paragraph directly after the block whose last line is exactly `find`
+    # (a paragraph's whole text, or a list's last item), judged after the run-level edits above. It must match exactly one block, like every other edit.
+    for i, e in enumerate(edits):
+        if e['kind'] != 'owner-paragraph':
+            continue
+        hits = [bi for bi, b in enumerate(out['blocks'])
+                if (''.join(r[0] for r in b['runs']) if b['type'] == 'p' else ''.join(r[0] for r in b['items'][-1])) == e['find']]
+        counts[i] = len(hits)
+        if len(hits) == 1:
+            out['blocks'].insert(hits[0] + 1, {'type': 'p', 'runs': [[e['replace'], False, False]]})
     for i, e in enumerate(edits):
         if counts[i] != e.get('expect', 1):
             raise ValueError('edit %d (%s) matched %d time(s), expected %d: %r' % (i, e['kind'], counts[i], e.get('expect', 1), e['find']))

@@ -36,8 +36,8 @@ section p.sub{color:var(--cocoa-l);text-align:center;max-width:680px;margin:0 au
 .plan.featured{border-color:var(--brass);border-top-color:var(--brass);background:linear-gradient(180deg,var(--foam),#F4E6CB)}
 .plan.navy{border-color:var(--navy);border-top-color:var(--navy)}
 .plan h3{margin:0;font-size:1.05rem}
-.price{font-size:1.7rem;font-weight:bold;margin:6px 0 2px}
-.price small{font-size:.85rem;font-weight:normal;color:var(--cocoa-l)}
+.price{font-size:1.7rem;font-weight:bold;margin:6px 0 2px;line-height:1.3}
+.price small{font-size:.85rem;font-weight:normal;color:var(--cocoa-l);display:block;line-height:1.4}
 .intro{color:var(--green);font-size:.85rem;font-weight:bold;margin-bottom:10px}
 .plan ul{list-style:none;padding:0;margin:10px 0 0;text-align:left;font-size:.88rem}
 .plan li{padding:3px 0 3px 20px;position:relative}
@@ -84,22 +84,21 @@ footer a{color:var(--gold)}
 
 <section id="pricing" style="background:var(--foam)"><div class="wrap">
 <h2>Pricing</h2>
-<p class="sub">The plans and prices in our <a href="terms.html" style="color:var(--ocean)">Terms of Service</a> (Section 5.1 and Schedule A). <q data-src="terms:5.1">Consumer plans are annual only.</q> <q data-src="terms:5.1">All prices are in United States dollars and exclude applicable taxes.</q> <strong>Nothing can be bought yet: every plan below is available at launch.</strong></p>
+<p class="sub">The plans and prices in our <a href="terms.html" style="color:var(--ocean)">Terms of Service</a> (Section 5.1 and Schedule A). <q data-src="terms:5.1">All plans are annual only, and no monthly price is offered.</q> <q data-src="terms:5.1">All prices are in United States dollars and exclude applicable taxes.</q> <strong>Nothing can be bought yet: every plan below is available at launch.</strong></p>
+<p class="sub" style="margin-top:6px"><q data-src="terms:ScheduleA">A Subscription bought at a launch price renews at that launch price for as long as it stays active without a break</q>. <q data-src="terms:ScheduleA">The Company will announce the end of the launch period on the Service at least 30 days in advance, and the launch period ends no later than six months after paid plans are first offered for sale.</q></p>
 <div class="pricing-grid">
 <div class="plan"><h3>Free</h3><div class="price"><span data-src="terms:5.1">no charge</span></div><div class="avail" data-label="consumer">Available at launch</div></div>
-<div class="plan featured"><h3>Skipper Plan</h3><div class="price"><span data-src="terms:5.1">$99</span><small> per year for one boat</small></div><div class="avail" data-label="consumer">Available at launch</div>
-<ul><li>Plus <span data-src="terms:5.1">$29</span> per year for each additional boat on the same account</li>
-<li><q data-src="terms:5.1">The Skipper Plan includes the features for delivery skippers and paid crew.</q></li></ul></div>
-<div class="plan navy"><h3>Fleet Plan</h3><div class="price"><span data-src="terms:5.1">$9</span><small> per boat per month</small></div><div class="avail" data-label="consumer">Available at launch</div>
-<ul><li><span data-src="terms:5.1">$8</span> per boat per month from <span data-src="terms:5.1">25</span> boats</li>
-<li><span data-src="terms:5.1">$7</span> per boat per month from <span data-src="terms:5.1">100</span> boats</li>
-<li>Billed monthly</li>
-<li><q data-src="terms:5.1">Where a Charter Operator buys the Fleet Plan through supported charter booking software, the price may instead be $2 per boat per charter-week, as shown at the point of sale.</q></li>
-<li><q data-src="terms:5.1">The Fleet Plan is the one business plan.</q></li>
+<div class="plan featured"><h3>Skipper Plan</h3><div class="price"><small>Launch price </small><span data-src="terms:ScheduleA">$69</span><small> a year for one boat · standard price <span data-src="terms:5.1">$99</span> a year after the launch period</small></div><div class="avail" data-label="consumer">Available at launch</div>
+<ul><li><q data-src="terms:5.1">The Skipper Plan includes the features for delivery skippers and paid crew.</q></li></ul></div>
+<div class="plan navy"><h3>Fleet Plan</h3><div class="price"><small>Launch price </small><span data-src="terms:ScheduleA">$62<small> per boat per year from 2 boats</small></span><small> · standard price <span data-src="terms:5.1">$89 per boat from 2 boats</span> after the launch period</small></div><div class="avail" data-label="consumer">Available at launch</div>
+<ul><li>Launch price <span data-src="terms:ScheduleA">$55 from 10 boats</span> · standard price <span data-src="terms:5.1">$79 per boat from 10 boats</span> after the launch period</li>
+<li>Launch price <span data-src="terms:ScheduleA">$48 from 25 boats</span> · standard price <span data-src="terms:5.1">$69 per boat from 25 boats</span> after the launch period</li>
+<li>Launch price <span data-src="terms:ScheduleA">$41 from 100 boats</span> · standard price <span data-src="terms:5.1">$59 per boat from 100 boats</span> after the launch period</li>
+<li>Billed yearly: <q data-src="terms:5.1">the number of boats on the account sets the price for every boat</q></li>
 <li><q data-src="terms:ScheduleA">One Charter Operator pays and invites crew and guests who use the Service free under their own accounts.</q></li></ul></div>
 </div>
 <div class="onetime">
-<div><h3>Founding Crew: <span data-src="terms:5.7">$299</span> one-time</h3><div class="avail" data-label="consumer">Available at launch</div>
+<div><h3>Founding Crew: launch price <span data-src="terms:ScheduleA">$209</span> one-time · standard price <span data-src="terms:5.7">$299</span> one-time after the launch period</h3><div class="avail" data-label="consumer">Available at launch</div>
 <p style="margin:0 0 8px;font-size:.9rem"><q data-src="terms:5.7">Founding Crew is a $299 one-time purchase for a lifetime Skipper Plan for one boat, limited to 150 seats and sold during a limited promotional window while seats remain.</q> <q data-src="terms:5.7">Founding Crew does not renew and ends on its own terms without a further charge.</q></p>
 <p style="margin:0;font-size:.9rem">In the Terms, "Lifetime" for a Founding Crew purchase means <q data-src="terms:5.8">for as long as the Company offers the Skipper Plan, or any successor or renamed tier that provides substantially similar access, and not the lifetime of the purchaser.</q></p></div>
 </div>
