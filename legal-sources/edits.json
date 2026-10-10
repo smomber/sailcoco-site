@@ -26,6 +26,76 @@
       "replace": "but only if the account is a Free tier account, and the Company does not close an account that holds a Free Compliance Card for inactivity.",
       "expect": 1,
       "reason": "owner-authorised edit, 10 Oct 2026: the Free Compliance Card is free and is not closed for inactivity; Simon's decision 2026-10-10T1630Z"
+    },
+    {
+      "kind": "owner",
+      "find": "means the business subscription described in Section 5, priced per boat, that lets one Charter Operator pay for access for its fleet and invite crew and guests.",
+      "replace": "means the subscription described in Section 5 for two or more boats, priced per boat per year, that lets one Charter Operator pay for access for its fleet and invite crew and guests.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: yearly-only pricing, the Fleet Plan for two or more boats (Definition \"Fleet Plan\": two or more boats, priced per boat per year)"
+    },
+    {
+      "kind": "owner",
+      "find": "Consumer plans are annual only. They are the Free tier at no charge and the Skipper Plan at $99 per year for one boat, plus $29 per year for each additional boat on the same account. The Skipper Plan includes the features for delivery skippers and paid crew. The Fleet Plan is the one business plan. It is priced per boat in the Charter Operator's fleet at $9 per boat per month, or $8 per boat per month from 25 boats and $7 per boat per month from 100 boats, and it bills monthly. Where a Charter Operator buys the Fleet Plan through supported charter booking software, the price may instead be $2 per boat per charter-week, as shown at the point of sale.",
+      "replace": "All plans are annual only, and no monthly price is offered. They are the Free tier at no charge, the Skipper Plan at $99 per year for one boat, and the Fleet Plan for two or more boats. The Skipper Plan includes the features for delivery skippers and paid crew. The Fleet Plan is priced per boat per year at $89 per boat from 2 boats, $79 per boat from 10 boats, $69 per boat from 25 boats, and $59 per boat from 100 boats, and the number of boats on the account sets the price for every boat.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: yearly-only pricing, the Fleet Plan for two or more boats (Section 5.1: all plans annual only; Skipper one boat; Fleet two or more boats, yearly tiers)"
+    },
+    {
+      "kind": "owner",
+      "find": "Annual plans renew once per year on the renewal date, and the Fleet Plan renews each month on the renewal date.",
+      "replace": "Each Subscription renews once per year on the renewal date.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: yearly-only pricing, the Fleet Plan for two or more boats (Section 5.2: every Subscription renews once per year)"
+    },
+    {
+      "kind": "owner",
+      "find": "Skipper Plan: $99 per year for one boat, plus $29 per year for each additional boat. Includes the features for delivery skippers and paid crew.",
+      "replace": "Skipper Plan: $99 per year for one boat. Includes the features for delivery skippers and paid crew.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: yearly-only pricing, the Fleet Plan for two or more boats (Schedule A, Skipper line: one boat, no additional-boat price)"
+    },
+    {
+      "kind": "owner",
+      "find": "Fleet Plan: $9 per boat per month ($8 from 25 boats, $7 from 100 boats), billed monthly, or $2 per boat per charter-week when bought through supported charter booking software.",
+      "replace": "Fleet Plan: for two or more boats, billed yearly per boat: $89 per boat from 2 boats, $79 from 10 boats, $69 from 25 boats, $59 from 100 boats; the number of boats on the account sets the price for every boat.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: yearly-only pricing, the Fleet Plan for two or more boats (Schedule A, Fleet line: yearly tiers, no monthly or charter-week price)"
+    },
+    {
+      "kind": "owner",
+      "find": "Schedule A lists the current plans.",
+      "replace": "Schedule A lists the current plans. Schedule A also lists the launch prices that apply during the launch period.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: launch prices on every consumer plan, locked in (Section 5.1: a pointer to the launch prices in Schedule A)"
+    },
+    {
+      "kind": "owner-paragraph",
+      "find": "Founding Crew: $299 one-time for a lifetime Skipper Plan for one boat, limited to 150 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.",
+      "replace": "Launch prices. During the launch period, the Company offers each plan at a launch price 30% below its standard price: the Skipper Plan at $69 per year; the Fleet Plan at $62 per boat per year from 2 boats, $55 from 10 boats, $48 from 25 boats and $41 from 100 boats; and Founding Crew at $209. A Subscription bought at a launch price renews at that launch price for as long as it stays active without a break, including boats added to a Fleet Plan later, and for that Subscription the standard price in Section 5.2 means its launch price. The Company will announce the end of the launch period on the Service at least 30 days in advance, and the launch period ends no later than six months after paid plans are first offered for sale. Purchases after the launch period ends are at the standard prices.",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: launch prices on every consumer plan, locked in (Schedule A: a new paragraph after the plan lines, the launch prices (30% below standard, locked in, with an end))"
+    },
+    {
+      "kind": "owner",
+      "find": "with an owner side and a renter side,",
+      "replace": "with an owner side and an operator side (for the person who takes the boat out, such as a renter, charterer or skipper),",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: the Compliance Card has an owner side and an operator side (the \"Compliance Card\" definition: an operator side)"
+    },
+    {
+      "kind": "owner",
+      "find": "A Charter Operator may also show the renter side of a Compliance Card",
+      "replace": "A Charter Operator may also show the operator side of a Compliance Card",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: the Compliance Card has an owner side and an operator side (section 1.3: the operator side of a Compliance Card)"
+    },
+    {
+      "kind": "owner",
+      "find": "a share of the $299 price",
+      "replace": "a share of the price paid",
+      "expect": 1,
+      "reason": "owner-authorised edit, 10 Oct 2026: with the launch price, the Founding Crew discontinuation refund is a share of the price the buyer paid; Simon's decision"
     }
   ],
   "privacy": [

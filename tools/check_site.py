@@ -8,7 +8,8 @@ Groups (the site publication rules of 9 Oct 2026):
   text        each page's text equals its source text, block by block, after whitespace normalisation, with ONLY the documented edits (legal-sources/edits.json)
   dates       no blank date line is left; the pages carry the publication date from site-config.json
   legal       legal.html is the approved text word for word (block by block, and again as one blob by an independent method), carries every required contact detail, no placeholder
-  figures     index.html and developers.html: every element carrying data-src is checked against its source (a Terms clause, the developer figures table, the legal page text, or the dated coverage counts in
+  figures     index.html and developers.html: every element carrying data-src is checked against its source (a Terms clause AS PUBLISHED, that is counsel's text with the authorised edits applied, matched as whole
+              words and figures so that "$9" is not found inside "$99"; the developer figures table, the legal page text, or the dated coverage counts in
               legal-sources/coverage-figures.json), and any money or number-with-unit in the pricing, refund and hero regions or on the developers page that has no data-src fails; on the home page a count of
               facts or countries, or a percentage, that has no data-src fails
   labels      every consumer plan says "Available at launch" and every developer plan the general-availability wording; no button, form or input on any page; no buy or checkout link
@@ -17,6 +18,8 @@ Groups (the site publication rules of 9 Oct 2026):
   banned      EVERY page in the repository (discovered, not listed): no retired plan name (whole word, any case, in the text a visitor reads), no freshness guarantee or credit, no registered-trademark symbol,
               no "copilot" or "co-pilot" in any case anywhere in a page's markup (the retired tagline word, title and meta tags included; the tagline is "Your Sailing Compliance CoCaptain");
               and, on every page except counsel's Terms and Privacy Policy, no introductory-price, first-year or step-up wording and no "Refund & Cancellation Policy" summary
+              plus, on the home page (every consumer plan is annual only, Terms 5.1): no monthly or weekly price or billing period (the developer plans on developers.html are monthly and are not affected), and no
+              "% off", "save %", was/now or struck-through price (launch prices are shown as launch price and standard price)
   footer      every checked page's footer links to Terms, Privacy (and Legal once legal.html exists) and carries the trademark line exactly
   links       every local link and anchor resolves
   scripts     the checked pages load no script and no external resource (so no analytics and no cookies are possible; the consent gate has nothing to gate)
@@ -48,6 +51,16 @@ AUTHORISED_EDITS = {
         ('owner', 'The Company will register the agent with the U.S. Copyright Office.', "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal."),
         ('owner', 'Free tier: no charge.', 'Free tier: no charge. The Free tier includes one Free Compliance Card per person: a Compliance Card for one place, at no charge. The Company will not charge for a Free Compliance Card.'),
         ('owner', 'but only if the account is a Free tier account.', 'but only if the account is a Free tier account, and the Company does not close an account that holds a Free Compliance Card for inactivity.'),
+        ('owner', 'means the business subscription described in Section 5, priced per boat, that lets one Charter Operator pay for access for its fleet and invite crew and guests.', 'means the subscription described in Section 5 for two or more boats, priced per boat per year, that lets one Charter Operator pay for access for its fleet and invite crew and guests.'),
+        ('owner', "Consumer plans are annual only. They are the Free tier at no charge and the Skipper Plan at $99 per year for one boat, plus $29 per year for each additional boat on the same account. The Skipper Plan includes the features for delivery skippers and paid crew. The Fleet Plan is the one business plan. It is priced per boat in the Charter Operator's fleet at $9 per boat per month, or $8 per boat per month from 25 boats and $7 per boat per month from 100 boats, and it bills monthly. Where a Charter Operator buys the Fleet Plan through supported charter booking software, the price may instead be $2 per boat per charter-week, as shown at the point of sale.", 'All plans are annual only, and no monthly price is offered. They are the Free tier at no charge, the Skipper Plan at $99 per year for one boat, and the Fleet Plan for two or more boats. The Skipper Plan includes the features for delivery skippers and paid crew. The Fleet Plan is priced per boat per year at $89 per boat from 2 boats, $79 per boat from 10 boats, $69 per boat from 25 boats, and $59 per boat from 100 boats, and the number of boats on the account sets the price for every boat.'),
+        ('owner', 'Annual plans renew once per year on the renewal date, and the Fleet Plan renews each month on the renewal date.', 'Each Subscription renews once per year on the renewal date.'),
+        ('owner', 'Skipper Plan: $99 per year for one boat, plus $29 per year for each additional boat. Includes the features for delivery skippers and paid crew.', 'Skipper Plan: $99 per year for one boat. Includes the features for delivery skippers and paid crew.'),
+        ('owner', 'Fleet Plan: $9 per boat per month ($8 from 25 boats, $7 from 100 boats), billed monthly, or $2 per boat per charter-week when bought through supported charter booking software.', 'Fleet Plan: for two or more boats, billed yearly per boat: $89 per boat from 2 boats, $79 from 10 boats, $69 from 25 boats, $59 from 100 boats; the number of boats on the account sets the price for every boat.'),
+        ('owner', 'Schedule A lists the current plans.', 'Schedule A lists the current plans. Schedule A also lists the launch prices that apply during the launch period.'),
+        ('owner-paragraph', 'Founding Crew: $299 one-time for a lifetime Skipper Plan for one boat, limited to 150 seats, sold during a limited promotional window while seats remain, no auto-renewal, no card kept on file.', 'Launch prices. During the launch period, the Company offers each plan at a launch price 30% below its standard price: the Skipper Plan at $69 per year; the Fleet Plan at $62 per boat per year from 2 boats, $55 from 10 boats, $48 from 25 boats and $41 from 100 boats; and Founding Crew at $209. A Subscription bought at a launch price renews at that launch price for as long as it stays active without a break, including boats added to a Fleet Plan later, and for that Subscription the standard price in Section 5.2 means its launch price. The Company will announce the end of the launch period on the Service at least 30 days in advance, and the launch period ends no later than six months after paid plans are first offered for sale. Purchases after the launch period ends are at the standard prices.'),
+        ('owner', 'with an owner side and a renter side,', 'with an owner side and an operator side (for the person who takes the boat out, such as a renter, charterer or skipper),'),
+        ('owner', 'A Charter Operator may also show the renter side of a Compliance Card', 'A Charter Operator may also show the operator side of a Compliance Card'),
+        ('owner', 'a share of the $299 price', 'a share of the price paid'),
     ],
     'privacy': [('date', '______________', None), ('typo', 'Redwood City, California 94065. Users', 'Redwood City, California 94065, USA. Users')],
 }
@@ -258,6 +271,17 @@ INTRO_WORDING = [
     (re.compile(r'\bsteps?\s+up\b', re.I), 'a price step-up promise'),
     (re.compile(r'Refund\s*(?:&|&amp;|and)\s*Cancellation\s+Policy', re.I), 'the old "Refund & Cancellation Policy" summary (cancellation and refunds are the Terms, Section 5)'),
 ]
+# The home page is the consumer page: every consumer plan is annual only (Terms 5.1: "no monthly price is offered"). developers.html is not checked here: the Platform plans are billed monthly (Developer Terms).
+CONSUMER_PAGES = ['index.html']
+CONSUMER_ALLOWED_PHRASE = 'no monthly price is offered'  # the Terms' own sentence (5.1), which the home page quotes under data-src; the `figures` group proves it is in the Terms
+CONSUMER_WORDING = [
+    (re.compile(r'\bmonthly\b|\b(?:per|each|every|a)\s+month\b|\bweekly\b|\b(?:per|each|every|a)\s+week\b|\bcharter[- ]?week\b', re.I), 'a monthly or weekly price or billing period (every consumer plan is annual only: Terms 5.1)'),
+    # Launch prices (Terms Schedule A) are shown as "Launch price ... · standard price ... after the launch period", never as a discount against a price nobody has paid.
+    (re.compile(r'\b\d+\s?%\s?(?:off|discount)\b|\bsave\s+(?:up\s+to\s+)?\d+\s?%|\b(?:was|now)\s+(?:US)?\$\s?\d', re.I), 'a "% off", "save %" or was/now price display (launch prices are shown as launch price and standard price, never as a discount)'),
+]
+CONSUMER_RAW_BANNED = [
+    (re.compile(r'<(?:s|del|strike)\b|line-through', re.I), 'a struck-through price (<s>, <del>, <strike> or text-decoration: line-through)'),
+]
 
 
 def check_banned():
@@ -274,6 +298,14 @@ def check_banned():
         if page not in COUNSEL_PAGES:
             for pat, why in INTRO_WORDING:
                 if pat.search(visible):
+                    fail('%s contains %s' % (page, why))
+        if page in CONSUMER_PAGES:
+            consumer_text = visible.replace(CONSUMER_ALLOWED_PHRASE, ' ')
+            for pat, why in CONSUMER_WORDING:
+                if pat.search(consumer_text):
+                    fail('%s contains %s' % (page, why))
+            for pat, why in CONSUMER_RAW_BANNED:
+                if pat.search(raw):
                     fail('%s contains %s' % (page, why))
         for pat, why in BANNED_PATTERNS:
             if pat.search(raw):
@@ -380,8 +412,16 @@ def tagged(page):
     return p.items, p.labels
 
 
+def in_clause(text, clause):
+    """True when `text` occurs in `clause` (any case) as whole words and figures: "$9" is not found inside "$99", nor "25" inside "250", nor "boat" inside "boats"."""
+    return re.search(r'(?<![\w$.,])' + re.escape(text) + r'(?!\w)', clause, re.I) is not None
+
+
 def terms_clause(cid):
-    lines = read('legal-sources/terms.txt').split('\n')
+    # The clauses a page's figures are checked against are the Terms AS PUBLISHED: counsel's source with the authorised edits (legal-sources/edits.json, itself pinned to AUTHORISED_EDITS above) applied,
+    # one line per paragraph or list item, exactly the lines the 'text' group proves terms.html carries. Reading counsel's raw terms.txt would make it impossible for a page to state a price an owner edit changed.
+    doc = L.apply_edits(L.load_json('legal-sources/terms.json'), L.load_json('legal-sources/edits.json')['terms'], L.config(), 'terms')
+    lines = list(L._lines(doc))
     if cid == 'ScheduleA':
         i = next((k for k, l in enumerate(lines) if l.startswith('Schedule A.')), None)
         j = next((k for k, l in enumerate(lines) if l.startswith('Schedule B.')), None)
@@ -436,7 +476,7 @@ def check_figures():
                 cl = terms_clause(ref)
                 if cl is None:
                     fail('%s: data-src %r names a clause that does not exist in the Terms' % (page, it['src']))
-                elif text.lower() not in cl.lower():
+                elif not in_clause(text, cl):
                     fail('%s: %r is not in Terms clause %s (data-src="%s")' % (page, text[:90], ref, it['src']))
             elif kind == 'dev':
                 want = dev_value(fig, ref)
