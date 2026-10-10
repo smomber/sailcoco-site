@@ -41,7 +41,12 @@ BANNED_PATTERNS = [
 # The ONLY edits to counsel's text that may exist (site publication rules of 9 Oct 2026): the publication date in the blank date lines, and this one typo fix. A new entry in
 # legal-sources/edits.json fails here until a human changes this list in the same pull request, where it is visible in review.
 AUTHORISED_EDITS = {
-    'terms': [('date', '______________', None), ('owner', 'The Company will register the agent with the U.S. Copyright Office.', "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal.")],
+    'terms': [
+        ('date', '______________', None),
+        ('owner', 'The Company will register the agent with the U.S. Copyright Office.', "The Company has registered the agent with the U.S. Copyright Office (registration number DMCA-1082554). The agent's full contact details are on the Legal information page at sailcoco.com/legal."),
+        ('owner', 'Free tier: no charge.', 'Free tier: no charge. The Free tier includes one Free Compliance Card per person: a Compliance Card for one place, at no charge. The Company will not charge for a Free Compliance Card.'),
+        ('owner', 'but only if the account is a Free tier account.', 'but only if the account is a Free tier account, and the Company does not close an account that holds a Free Compliance Card for inactivity.'),
+    ],
     'privacy': [('date', '______________', None), ('typo', 'Redwood City, California 94065. Users', 'Redwood City, California 94065, USA. Users')],
 }
 
