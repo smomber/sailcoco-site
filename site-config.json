@@ -3,6 +3,10 @@
     "monthDay": "October 9",
     "year": 2026
   },
+  "privacyPublicationDate": {
+    "monthDay": "October 10",
+    "year": 2026
+  },
   "hasLegalPage": true,
-  "note": "publicationDate is the date the legal pages are PUBLISHED, i.e. the date the pull request is merged (site publication rules of 9 Oct 2026). It is filled into the blank 'Effective Date' and 'Last Updated' lines of the Terms of Service and the Privacy Policy and nowhere else. If the merge happens on another day, change it here and rebuild (python3 tools/build_legal.py); CI fails if a page and this file disagree. hasLegalPage switches the Legal link on in the header and footer; it is true once legal.html is on main."
+  "note": "publicationDate is the date the legal pages are PUBLISHED, i.e. the date the pull request is merged (site publication rules of 9 Oct 2026). It is filled into the blank 'Last Updated' line of the Terms of Service and nowhere else. The Privacy Policy has its own date, privacyPublicationDate (counsel's round 3, 10 Oct 2026: its 'Effective Date' and 'Last Updated' lines are the date round 3 was merged), because the Terms did not change in round 3 and keep October 9, 2026. If the merge happens on another day, change it here and rebuild (python3 tools/build_legal.py); CI fails if a page and this file disagree. hasLegalPage switches the Legal link on in the header and footer; it is true once legal.html is on main."
 }

@@ -25,7 +25,7 @@ def build():
     pages = {}
     for name, d in DOCS.items():
         doc = L.load_json('legal-sources/%s.json' % name)
-        edited = L.apply_edits(doc, edits[name], cfg)
+        edited = L.apply_edits(doc, edits[name], cfg, name)
         pages[d['out']] = L.page_html(d['title'], L.blocks_html(edited), cfg['hasLegalPage'])
     if cfg['hasLegalPage']:
         md = open(os.path.join(L.ROOT, 'legal-sources', 'legal.md'), encoding='utf-8').read()

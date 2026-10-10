@@ -33,6 +33,11 @@ def config():
     return load_json('site-config.json')
 
 
+def pub_date(cfg, name=None):
+    """The configured publication date for one document. The Privacy Policy has its own (counsel's round 3, 10 Oct 2026: its Effective Date and Last Updated are the date round 3 was merged); every other document uses publicationDate."""
+    return cfg['privacyPublicationDate'] if name == 'privacy' else cfg['publicationDate']
+
+
 def date_text(cfg):
     return '%s, %s' % (cfg['publicationDate']['monthDay'], cfg['publicationDate']['year'])
 
@@ -61,11 +66,11 @@ def _lines(doc):
             yield t
 
 
-def apply_edits(doc, edits, cfg):
+def apply_edits(doc, edits, cfg, name=None):
     """Return a deep copy of the document with the documented edits applied at run level. Every edit must match EXACTLY once, or this raises (a silent no-op would hide a changed source)."""
     out = json.loads(json.dumps(doc))
-    month_day = cfg['publicationDate']['monthDay']
-    year = str(cfg['publicationDate']['year'])
+    month_day = pub_date(cfg, name)['monthDay']
+    year = str(pub_date(cfg, name)['year'])
     counts = [0] * len(edits)
 
     def fix_runs(runs):

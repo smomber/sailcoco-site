@@ -7,7 +7,7 @@ directory, and `python3 tools/check_site.py` (run by CI on every pull request an
 | Page | Source document (counsel, round 2, final "CLEAN" version) | Bytes | SHA-256 |
 |---|---|---|---|
 | `terms.html` | CLEAN 01 SailCoCo LLC - Terms of Service v4.docx | 40289 | `0d4742fa16de0aa3acd69e0eed9f1b7dfc25eb70886d2ef24cc4012f740e392e` |
-| `privacy.html` | CLEAN 02 SailCoCo LLC - Privacy Policy v5.docx | 31803 | `20d96149e04695758178f5138887b750a37ecd714c1ae85ae3cc4141746f7403` |
+| `privacy.html` | ROUND3 02 SailCoCo LLC - Privacy Policy v5.docx (counsel, round 3, 10 Oct 2026: one sentence added to section 5) | 31859 | `5c1a729e4459a84dafa389500f270865bcc4e45a7b897a3e1022f2f5c6aaa159` |
 
 ## Text supplied directly (not extracted from a .docx)
 
@@ -21,7 +21,7 @@ The developer plan figures on `developers.html` come from `developer-figures.jso
 
 | Document | Bytes | SHA-256 |
 |---|---|---|
-| Developer Terms (order form), final version | 50633 | `16647ad8c11f104f3d9214acaa7bfc8b676e58bb1b38b3c2ab7d55be2f42cfe7` |
+| Developer Terms (order form), counsel's round 3 version (ROUND3 03; monthly-only Platform plans, licence period set by the Licence Order Form) | 50652 | `4b608d8961331a889b10279b30b3cb00d43011564166260b1aa504705b4b014d` |
 | API Usage and Attribution Policy, final version | 22980 | `6092f288f074858aa6247fba1003580fabaf3ed6cad756ec2288cb220b754e6c` |
 
 ## How the sources were made
