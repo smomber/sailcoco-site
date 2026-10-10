@@ -1,9 +1,9 @@
 {
  "title": "Privacy Policy v5",
  "source": {
-  "fileName": "CLEAN 02 SailCoCo LLC - Privacy Policy v5.docx",
-  "bytes": 31803,
-  "sha256": "20d96149e04695758178f5138887b750a37ecd714c1ae85ae3cc4141746f7403"
+  "fileName": "ROUND3 02 SailCoCo LLC - Privacy Policy v5.docx",
+  "bytes": 31859,
+  "sha256": "5c1a729e4459a84dafa389500f270865bcc4e45a7b897a3e1022f2f5c6aaa159"
  },
  "blocks": [
   {
@@ -559,7 +559,7 @@
    "type": "p",
    "runs": [
     [
-     "The Company keeps account data while an account stays active and for a reasonable period afterward to handle disputes, refunds, and legal duties. Ship's Papers documents stay while your account is active and until you delete them or close your account. Subscription consent records stay for at least three years. Compliance Records stay for three years after they are created, unless the account holder who created them deletes them sooner, so they can show later what was shown and when. Tax and financial records stay as long as tax law requires. Support and dispute records stay as long as needed to resolve and document the matter. When personal information is no longer needed, the Company deletes it or strips it of identifying details using reasonable secure disposal measures. Marketing consent records stay for as long as the consent is in effect and for three years after it is withdrawn. Assistant connector and API request logs stay for 30 days, and usage counts needed for billing stay as long as the related financial records. Community Feed reports, moderation decisions, and appeals stay for at least six months after the decision and longer where needed for a dispute or a legal duty.",
+     "The Company keeps account data while an account stays active and for a reasonable period afterward to handle disputes, refunds, and legal duties. Ship's Papers documents stay while your account is active and until you delete them or close your account. Subscription consent records stay for at least three years. Clickwrap acceptance records under section 1.2 of the Terms of Service, including the date, time, account, document version, and specific language accepted, stay for at least three years. Compliance Records stay for three years after they are created, unless the account holder who created them deletes them sooner, so they can show later what was shown and when. Tax and financial records stay as long as tax law requires. Support and dispute records stay as long as needed to resolve and document the matter. When personal information is no longer needed, the Company deletes it or strips it of identifying details using reasonable secure disposal measures. Marketing consent records stay for as long as the consent is in effect and for three years after it is withdrawn. Assistant connector and API request logs stay for 30 days, and usage counts needed for billing stay as long as the related financial records. Community Feed reports, moderation decisions, and appeals stay for at least six months after the decision and longer where needed for a dispute or a legal duty.",
      false,
      false
     ]

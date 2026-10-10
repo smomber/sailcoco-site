@@ -2,9 +2,9 @@
  "note": "The developer plan figures shown on developers.html. The developer documents themselves are not published, so they are not in this repository: each figure below was read from the clause named beside it, and the size and SHA-256 of each document are recorded so anyone holding the file can re-check. tools/verify_developer_figures.py does that check against the .docx files (run locally; CI does not have them). tools/check_site.py checks that the page shows exactly these figures.",
  "sources": {
   "developerTerms": {
-   "title": "Developer Terms (order form), final version",
-   "bytes": 50633,
-   "sha256": "16647ad8c11f104f3d9214acaa7bfc8b676e58bb1b38b3c2ab7d55be2f42cfe7"
+   "title": "Developer Terms (order form), counsel's round 3 version",
+   "bytes": 50652,
+   "sha256": "4b608d8961331a889b10279b30b3cb00d43011564166260b1aa504705b4b014d"
   },
   "apiPolicy": {
    "title": "API Usage and Attribution Policy, final version",

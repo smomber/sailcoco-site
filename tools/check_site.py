@@ -154,7 +154,7 @@ def check_text():
     cfg = L.config()
     edits = L.load_json('legal-sources/edits.json')
     for name, out in (('terms', 'terms.html'), ('privacy', 'privacy.html')):
-        doc = L.apply_edits(L.load_json('legal-sources/%s.json' % name), edits[name], cfg)
+        doc = L.apply_edits(L.load_json('legal-sources/%s.json' % name), edits[name], cfg, name)
         want = [L.norm(x) for x in L._lines(doc)]
         blocks, stray = L.page_blocks(read(out))
         got = [L.norm(b) for b in blocks]
@@ -171,9 +171,12 @@ def check_text():
 
 def check_dates():
     cfg = L.config()
-    md, yr = cfg['publicationDate']['monthDay'], str(cfg['publicationDate']['year'])
-    stamp = '%s, %s' % (md, yr)
-    for out, needs in (('terms.html', ['Last Updated: ' + stamp]), ('privacy.html', ['Effective Date: ' + stamp, 'Last Updated: ' + stamp])):
+    if 'privacyPublicationDate' not in cfg:
+        fail('site-config.json has no privacyPublicationDate (the Privacy Policy carries its own date since counsel\'s round 3)')
+        return
+    stamp = '%s, %s' % (cfg['publicationDate']['monthDay'], cfg['publicationDate']['year'])
+    pstamp = '%s, %s' % (cfg['privacyPublicationDate']['monthDay'], cfg['privacyPublicationDate']['year'])
+    for out, needs in (('terms.html', ['Last Updated: ' + stamp]), ('privacy.html', ['Effective Date: ' + pstamp, 'Last Updated: ' + pstamp])):
         t = read(out)
         if '____' in t:
             fail('%s still has a blank date line' % out)
